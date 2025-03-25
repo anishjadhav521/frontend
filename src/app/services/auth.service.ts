@@ -18,6 +18,7 @@ export class AuthService {
       next : (res:any)=>{
         
         alert("logged in")
+        this.router.navigate(['/home'])
 
       },
       error : (err)=>{

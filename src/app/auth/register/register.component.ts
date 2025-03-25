@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, inject } from '@angular/core';
 import { FormControl, FormGroup, Validators, type AbstractControl, type ValidationErrors, type ValidatorFn } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-register',
@@ -18,7 +19,7 @@ export class RegisterComponent {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  constructor(private backend:HttpClient){
+  constructor(private backend:HttpClient,private authService:AuthService){
 
     // const http:HttpClient =inject(HttpClient)
 
@@ -42,13 +43,8 @@ export class RegisterComponent {
   signUp() {
     if (this.RegistrationForm.valid) {
 
-      // this.backend.post('http://localhost:200/',this.RegistrationForm.value)/
-      console.log(this.RegistrationForm.value);
-      
-
-      console.log("Signup Successful!");
-    } else {
-      console.log("Validation Failed");
+      this.authService.signUp(this.RegistrationForm.value)
+       
     }
   }
 

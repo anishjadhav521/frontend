@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent {
 
   userForm!:FormGroup
 
-  constructor(){
+  constructor(private backend:HttpClient,private authService:AuthService){
 
     this.userForm = new FormGroup({
 
@@ -25,15 +27,7 @@ export class LoginComponent {
 
     if(this.userForm.valid){
 
-      console.log("hello");
-      
-      alert("hii")
-    }
-    else{
-
-      console.log("fk");
-      
-      
+      this.authService.logIn(this.userForm.value)
     }
   }
 

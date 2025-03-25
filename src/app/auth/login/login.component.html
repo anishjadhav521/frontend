@@ -1,9 +1,45 @@
-<form  [formGroup]="userForm">
-    <div>
-        <input type="text" placeholder="username" formControlName="username">
-    </div>
-
-    <div>
+<div class="login-container">
+    <div class="login-box">
+      <h2 class="login-title">Login</h2>
+      
+      <form [formGroup]="userForm" (ngSubmit)="logIn()">
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="Enter your email">
+          <div class="error" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
+            <span *ngIf="userForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="userForm.get('email')?.errors?.['pattern']">Enter a valid email</span>
+          </div>
+        </div>
         
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="Enter your password">
+          <div class="error" *ngIf="userForm.get('password')?.touched && userForm.get('password')?.invalid">
+            <span *ngIf="userForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="userForm.get('password')?.errors?.['pattern']">Password must contain uppercase, lowercase, number, and special character</span>
+          </div>
+        </div>
+        
+        <div class="options">
+          <div>
+            <input type="checkbox" id="remember">
+            <label for="remember">Remember me</label>
+          </div>
+          <a href="#">Forgot password?</a>
+        </div>
+        
+        <button class="login-button" [disabled]="userForm.invalid">Login</button>
+        
+        <p class="login-alt">Or login with</p>
+        <div class="social-buttons">
+          <button class="facebook">Facebook</button>
+          <button class="x">X</button>
+          <button class="snapchat">Snapchat</button>
+          <button class="instagram">Instagram</button>
+        </div>
+      </form>
+      
+      <a class="signup" >Don't have an account? <a routerLink="/registration" href="#">Sign up</a></a>
     </div>
-</form>
+  </div>

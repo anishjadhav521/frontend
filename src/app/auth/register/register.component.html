@@ -1,1 +1,45 @@
-<p>register works!</p>
+<div class="signup-container">
+    <div class="signup-box">
+      <h2 class="signup-title">Sign Up</h2>
+      
+      <form [formGroup]="RegistrationForm">
+        <div class="input-group">
+          <label>Username</label>
+          <input type="text" formControlName="username" placeholder="Enter your username">
+          <div class="error" *ngIf="RegistrationForm.get('username')?.touched && RegistrationForm.get('username')?.invalid">
+            <span *ngIf="RegistrationForm.get('username')?.errors?.['required']">Username is required</span>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Email</label>
+          <input type="email" formControlName="email" placeholder="Enter your email">
+          <div class="error" *ngIf="RegistrationForm.get('email')?.touched && RegistrationForm.get('email')?.invalid">
+            <span *ngIf="RegistrationForm.get('email')?.errors?.['required']">Email is required</span>
+            <span *ngIf="RegistrationForm.get('email')?.errors?.['pattern']">Enter a valid email</span>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Password</label>
+          <input type="password" formControlName="password" placeholder="Enter your password">
+          <div class="error" *ngIf="RegistrationForm.get('password')?.touched && RegistrationForm.get('password')?.invalid">
+            <span *ngIf="RegistrationForm.get('password')?.errors?.['required']">Password is required</span>
+            <span *ngIf="RegistrationForm.get('password')?.errors?.['minlength']">Password must be at least 8 characters</span>
+            <span *ngIf="RegistrationForm.get('password')?.errors?.['pattern']">Password must contain uppercase, lowercase, number, and special character</span>
+          </div>
+        </div>
+        
+        <div class="input-group">
+          <label>Confirm Password</label>
+          <input type="password" formControlName="confirmPassword" placeholder="Confirm your password">
+          <div class="error" *ngIf="RegistrationForm.get('confirmPassword')?.touched && RegistrationForm.get('confirmPassword')?.invalid">
+            <span *ngIf="RegistrationForm.get('confirmPassword')?.errors?.['required']">Confirm Password is required</span>
+            <span *ngIf="RegistrationForm.errors?.['passwordMismatch']">Passwords do not match</span>
+          </div>
+        </div>
+        
+        <button (click)="signUp()" class="signup-button" [disabled]="RegistrationForm.invalid">Sign Up</button>
+      </form>
+    </div>
+  </div>

@@ -4,7 +4,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthModule } from './auth/auth.module';
-
+import { FormsModule } from '@angular/forms';
+import { HomeModule } from './home/home.module';
 
 @NgModule({
   declarations: [
@@ -13,9 +14,8 @@ import { AuthModule } from './auth/auth.module';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ReactiveFormsModule,
-    AuthModule
-
+    AuthModule,
+    HomeModule
 ],
   providers: [],
   bootstrap: [AppComponent]

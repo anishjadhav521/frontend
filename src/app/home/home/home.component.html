@@ -10,26 +10,36 @@
       </ul>
     </aside>
     
-    <!-- <main class="feed">
+  <main class="feed">
       <div class="post" *ngFor="let post of posts">
         <div class="post-header">
-          <img [src]="post.userAvatar" alt="User Avatar" class="avatar">
-          <h3>{{ post.username }}</h3>
+          <img src="post.imgUrl" alt="User Avatar" class="avatar">
+          <!-- <h3>{{ post.username }}</h3> -->
         </div>
-        <img [src]="post.imageUrl" alt="Post Image" class="post-image">
+        <img src="post.imgUrl" alt="Post Image" class="post-image">
         <div class="post-footer">
           <p>{{ post.caption }}</p>
         </div>
       </div>
-    </main>
+  </main>
   
     <aside class="suggestions">
       <h2>Suggested for you</h2>
       <ul>
-        <li *ngFor="let user of suggestedUsers">
-          <img [src]="user.avatar" alt="User Avatar" class="avatar">
-          <span>{{ user.username }}</span>
+        <!-- <li *ngFor="let user of suggestedUsers"> -->
+          <li>
+          <!-- <img [src]="user.avatar" alt="User Avatar" class="avatar"> -->
+          <!-- <span>{{ user.username }}</span> -->
         </li>
       </ul>
-    </aside> -->
+    </aside> 
+
+  <form enctype="multipart/form-data">
+    <input type="file" (change)="onChange($event)" >
+    <input type="text" [(ngModel)]="caption" name="caption" placeholder="add caption" >
+
+
+    <button (click)="addPost()">add</button>
+  </form>
+  
   </div>

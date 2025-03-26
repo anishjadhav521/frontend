@@ -22,7 +22,9 @@ export class AuthService {
 
       },
       error : (err)=>{
-
+        
+        console.log(user);
+        
         console.log(err);
         alert (err.error.msg)
          

@@ -13,18 +13,44 @@ import { FormsModule } from '@angular/forms';
 export class HomeComponent {
 
   posts: any = []
+
+
   file: any;
   caption: string = ''
+  iisPostFormVisible:boolean  = false;
 
   constructor(private backend: HttpClient) {
 
-    backend.get('http://localhost:200/getPost', { withCredentials: true }).subscribe({
+    // this.iisPostFormVisible = false   
 
-      next: (res: any) => {
-        this.posts = res.posts
-        console.log(res.posts[0].caption);
+
+    // backend.get('http://localhost:200/getPost', { withCredentials: true }).subscribe({
+
+    //   next: (res: any) => {
+    //     this.posts = res.posts
+    //     console.log(res.posts[0].caption);
+    //   }
+    // })
+
+    this.posts = [
+      {
+        username: 'John Doe',
+        imgUrl: 'https://source.unsplash.com/random/600x400?portrait',
+        caption: 'Had a great day today!'
+      },
+      {
+        username: 'Jane Smith',
+        imgUrl: 'https://source.unsplash.com/random/600x400?nature',
+        caption: 'Loving the weather!'
       }
-    })
+    ];
+  }
+  
+  togglePostForm(){
+
+    this.iisPostFormVisible = !this.iisPostFormVisible
+    console.log(this.iisPostFormVisible);
+    
   }
 
 

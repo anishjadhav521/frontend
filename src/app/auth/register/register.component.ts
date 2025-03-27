@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, inject } from '@angular/core';
-import { FormControl, FormGroup, Validators, type AbstractControl, type ValidationErrors, type ValidatorFn } from '@angular/forms';
+import { ControlContainer, FormControl, FormGroup, Validators, type AbstractControl, type ValidationErrors, type ValidatorFn } from '@angular/forms';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -25,7 +25,7 @@ export class RegisterComponent {
 
     this.RegistrationForm = new FormGroup({
 
-      username: new FormControl<string>('',[Validators.required]),
+      userName: new FormControl<string>('',[Validators.required]),
       email: new FormControl('', [
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
@@ -35,12 +35,17 @@ export class RegisterComponent {
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/)
       ]),
-      confirmPassword: new FormControl('', [Validators.required])
+      confirmPassword: new FormControl('', [Validators.required]),
+      phoneNumber : new FormControl('',[
+        Validators.required
+      ]),
+      fullName : new FormControl('',[Validators.required,Validators.minLength(20)])
     }, { validators: this.passwordMatchValidator });
 
   }
 
   signUp() {
+    
     if (this.RegistrationForm.valid) {
 
       this.authService.signUp(this.RegistrationForm.value)

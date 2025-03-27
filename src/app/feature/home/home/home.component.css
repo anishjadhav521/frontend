@@ -247,3 +247,28 @@
     background: #9ca3af;
   }
   
+  .post-footer {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .like-button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    background: #e5e7eb;
+    color: #333;
+  }
+  
+  .like-button.liked {
+    background: #16a34a; /* Darker for liked state */
+    color: white;
+  }
+  
+  .like-button:hover {
+    transform: scale(1.05);
+  }

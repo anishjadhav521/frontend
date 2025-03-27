@@ -1,8 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject, inject } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, Validators, type AbstractControl, type ValidationErrors, type ValidatorFn } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
-
+import { AuthService } from '../../../services/auth.service';
 @Component({
   selector: 'app-register',
   standalone: false,

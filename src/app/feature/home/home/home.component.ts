@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
-import { NgModel } from '@angular/forms';
-import { FormsModule } from '@angular/forms';
-import { UserService } from '../../services/user.service';
+import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 
 
@@ -27,26 +24,37 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
+    // this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
 
-      next: (res: any) => {
+    //   next: (res: any) => {
 
-        console.log(res);
+    //     console.log(res);
         
-        this.userService.user = res.user
+    //     this.userService.user = res.user
 
-        this.posts = res.user.post
+    //     this.posts = res.user.post
 
-        this.userName = res.user.userName
-      },
+    //     this.userName = res.user.userName
+    //   },
 
-      error:(res)=>{
+    //   error:(res)=>{
 
-        this.router.navigate(['/login'])
+    //     this.router.navigate(['/login'])
         
-      }
-    })
+    //   }
+    // })
 
+    this.posts = [
+      { id: 1, username: 'Alice', imgUrl: 'assets/user1.jpg', caption: 'Beautiful day!', liked: false, likes: 10 },
+      { id: 2, username: 'Bob', imgUrl: 'assets/user2.jpg', caption: 'Love this place!', liked: false, likes: 5 }
+    ];
+  }
+
+  toggleLike(post: any) {
+    post.liked = !post.liked; 
+    post.likes = post.liked ? post.likes + 1 : post.likes - 1;
+
+    this.updateLikes(post.id,post.liked,post.likes)
   }
 
   togglePostForm() {
@@ -92,7 +100,7 @@ export class HomeComponent implements OnInit {
   }
   likes?:number
 
-  addLike(id:number){
+  updateLikes(id:number,liked:boolean,likes:number){
 
     this.http.post('http://localhost:200/addLike',id).subscribe(
 

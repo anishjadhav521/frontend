@@ -22,7 +22,7 @@ export class HomeComponent {
 
       next: (res: any) => {
         this.posts = res.posts
-        console.log(res.posts[0].caption);
+        console.log(res.posts[0].imgUrl);
       }
     })
   }

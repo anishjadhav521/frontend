@@ -1,0 +1,25 @@
+<div class="container">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <ul class="menu-list">
+            <li><button routerLink="/home">Home</button></li>
+            <li><button routerLink="/search">Search Users</button></li>
+            <li><button routerLink="/profile">Profile</button></li>
+        </ul>
+    </div>
+    
+    <!-- Main Content -->
+    <div class="content">
+        <div class="feed">
+            <h2>Search Users</h2>
+            <input type="text" [(ngModel)]="searchQuery" class="modal-content input" placeholder="Search by username...">
+            <ul class="suggestions">
+                <li *ngFor="let user of sers" class="user-item">
+                    <img [src]="" alt="Profile" class="avatar">
+                    <button >username</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>

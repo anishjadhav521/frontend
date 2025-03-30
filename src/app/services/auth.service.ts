@@ -23,10 +23,7 @@ export class AuthService {
       },
       error : (err)=>{
         
-        console.log(user);
-        
-        console.log(err);
-        alert (err.error.msg)
+        alert ("Sorry, your password was incorrect. Please double-check your password.")
          
       }
     }

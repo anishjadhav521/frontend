@@ -13,48 +13,64 @@ import { Router } from '@angular/router';
 export class HomeComponent implements OnInit {
 
   posts: any = []
-
-
   file: any;
   caption: string = ''
   isPostFormVisible: boolean = false;
   userName?: string
 
-  constructor(private http: HttpClient, private userService: UserService, private router:Router) { }
+  constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
 
   ngOnInit(): void {
 
-    // this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
+    this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
 
-    //   next: (res: any) => {
+      next: (res: any) => {
 
-    //     console.log(res);
+        this.userName = res.user[0].profile.userName
+
+        this.userService.user = res.user[0]
+      
+        this.posts = res.user[0].post
+
+        this.posts.forEach((post: any) => {
+
+          post.like.LikedBy.forEach(
+            (obj: any) => {
+
+              console.log(this.userService.user.userId);
+              
+              if (obj.userId == this.userService.user.userId) {
+
+                post.like.isLiked = true;
+
+              }
+            })
+        });
         
-    //     this.userService.user = res.user
+      },
 
-    //     this.posts = res.user.post
+      error: (res) => {
 
-    //     this.userName = res.user.userName
-    //   },
+        this.router.navigate(['/login'])
 
-    //   error:(res)=>{
+      }
+    })
 
-    //     this.router.navigate(['/login'])
-        
-    //   }
-    // })
-
-    this.posts = [
-      { id: 1, username: 'Alice', imgUrl: 'assets/user1.jpg', caption: 'Beautiful day!', liked: false, likes: 10 },
-      { id: 2, username: 'Bob', imgUrl: 'assets/user2.jpg', caption: 'Love this place!', liked: false, likes: 5 }
-    ];
+    // this.posts = [
+    //   { id: 1, username: 'Alice', imgUrl: 'assets/user1.jpg', caption: 'Beautiful day!', liked: false, likes: 10 },
+    //   { id: 2, username: 'Bob', imgUrl: 'assets/user2.jpg', caption: 'Love this place!', liked: false, likes: 5 }
+    // ];
   }
 
   toggleLike(post: any) {
-    post.liked = !post.liked; 
-    post.likes = post.liked ? post.likes + 1 : post.likes - 1;
 
-    this.updateLikes(post.id,post.liked,post.likes)
+    post.like.isLiked = !post.like.isLiked;
+    post.like.count = post.like.isLiked ? post.like.count + 1 : post.like.count - 1;
+    if (post.like.count < 0) {
+      post.like.count = 0
+    }
+
+    this.updateLikes(post.PostId, post.like.isLiked, post.like.count)
   }
 
   togglePostForm() {
@@ -81,32 +97,63 @@ export class HomeComponent implements OnInit {
     formdata.append('file', this.file)
     formdata.append('caption', this.caption)
 
-    this.http.post('http://localhost:200/addPost', formdata, { withCredentials: true }).subscribe({
+    if(this.file || this.caption){
 
-      next: (res: any) => {
+      this.http.post('http://localhost:200/addPost', formdata, { withCredentials: true }).subscribe({
 
-        alert(res.msg)
+        next: (res: any) => {
+  
+          alert(res.msg)
+  
+          this.http.get('http://localhost:200/getPost', { withCredentials: true }).subscribe({
+  
+            next: (res: any) => {
+              console.log(res.posts);
+  
+              this.posts = res.posts
+              console.log(res.posts[0].caption);
+              this.userName = res.posts[0].userName
+  
+              this.posts.forEach((post: any) => {
+  
+                post.like.LikedBy.forEach(
+                  (obj: any) => {
+  
+                    if (obj.userId == this.userService.user[0].userId) {
+  
+                      post.like.isLiked = true;
+  
+                    }
+                  })
+              });
+            }
+          })
+        }
+      })
+    }
+    else{
 
-        this.http.get('http://localhost:200/getPost', { withCredentials: true }).subscribe({
+      alert("empty")
+    }
 
-          next: (res: any) => {
-            this.posts = res.posts
-            console.log(res.posts[0].caption);
-            this.userName = res.posts[0].userName
-          }
-        })
-      }
-    })
+    
   }
-  likes?:number
+  likes?: number
 
-  updateLikes(id:number,liked:boolean,likes:number){
+  updateLikes(id: number, liked: boolean, likes: number) {
 
-    this.http.post('http://localhost:200/addLike',id).subscribe(
+    const updates: any = {
+
+      postId: id,
+      updatedLiked: liked,
+      updatedLikes: likes
+    }
+
+    this.http.post('http://localhost:200/updateLike', updates, { withCredentials: true }).subscribe(
 
       {
-        next:(res:any)=>{
-            this.likes=res.like
+        next: (res: any) => {
+          this.likes = res.like
         }
       }
 

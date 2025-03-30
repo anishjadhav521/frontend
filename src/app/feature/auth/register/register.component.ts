@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, Inject, inject } from '@angular/core';
+import { Component, Inject, inject, OnInit } from '@angular/core';
 import { ControlContainer, FormControl, FormGroup, Validators, type AbstractControl, type ValidationErrors, type ValidatorFn } from '@angular/forms';
 import { AuthService } from '../../../services/auth.service';
 @Component({
@@ -8,7 +8,7 @@ import { AuthService } from '../../../services/auth.service';
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
-export class RegisterComponent {
+export class RegisterComponent implements OnInit {
 
   RegistrationForm!:FormGroup
   
@@ -18,9 +18,10 @@ export class RegisterComponent {
     return password === confirmPassword ? null : { passwordMismatch: true };
   }
 
-  constructor(private backend:HttpClient,private authService:AuthService){
+  constructor(private backend:HttpClient,private authService:AuthService){}
 
-    // const http:HttpClient =inject(HttpClient)
+
+  ngOnInit() {
 
     this.RegistrationForm = new FormGroup({
 
@@ -41,6 +42,7 @@ export class RegisterComponent {
       fullName : new FormControl('',[Validators.required,Validators.minLength(20)])
     }, { validators: this.passwordMatchValidator });
 
+    
   }
 
   signUp() {

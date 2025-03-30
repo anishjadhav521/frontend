@@ -24,11 +24,11 @@
         <img [src]="post.imgUrl" alt="Post Image" class="post-image">
         <div class="post-footer">
           <p>{{ post.caption }}</p>
-          <button (click)="toggleLike(post)" [ngClass]="{'liked': post.liked}" class="like-button">
-            <span *ngIf="post.liked">👍 Liked</span>
-            <span *ngIf="!post.liked">👍 Like</span>
+          <button (click)="toggleLike(post)" [ngClass]="{'liked': post.like.isLiked}" class="like-button">
+            <span *ngIf="post.like.isLiked">👍 Liked</span>
+            <span *ngIf="!post.like.isLiked">👍 Like</span>
           </button>
-          <span>{{ post.likes }} Likes</span>
+          <span>{{ post.like.count }} Likes</span>
         </div>
       </div>
     </section>

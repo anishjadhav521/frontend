@@ -15,37 +15,77 @@
             <h2>Profile Information</h2>
             
             <div class="profile-item">
-                <label>Username:</label>
-                <span></span>
+                <div class="profile-editable">
+                <label>Username : {{userProfile.userName}}</label>
+                <ng-container *ngIf= "changeUsername; then userName">
+
+                </ng-container>
+                    <span></span>
+                    <button class="edit-btn" (click)="editUsername()">Edit</button>
+                    <ng-template #userName>
+                        <span></span>
+                            <input type="text" [(ngModel)]="newUsername">
+                            <button class="edit-btn"  (click)="updateUsername()">update</button>
+                    </ng-template>
+                </div>
+                
             </div>
             
             <div class="profile-item">
-                <label>Email:</label>
+                <label>Email : {{userProfile.email}}</label>
+                <ng-container *ngIf= "changeEmail; then email">
+                    
+                </ng-container>
+
                 <div class="profile-editable">
                     <span></span> 
-                    <button class="edit-btn" >Edit</button>
+                    <button class="edit-btn" (click)="editEmail()">Edit</button>
+                    <ng-template #email>
+                        <span></span>
+                            <input type="text" [(ngModel)]="newEmail">
+                            <button class="edit-btn" (click)="updateEmail()" >update</button>
+                    </ng-template>
                 </div>
             </div>
             
             <div class="profile-item">
-                <label>Phone Number:</label>
+                <label>Phone Number : {{userProfile.phoneNumber}}</label>
+                <ng-container *ngIf= "changePhoneNumber; then phoneNumber">
+                    
+                </ng-container>
+
                 <div class="profile-editable">
                     <span></span>
-                    <button class="edit-btn">Edit</button>
+                    <button class="edit-btn" (click)="editPhoneNumber()">Edit</button>
+                    <ng-template #phoneNumber>
+                        <span></span>
+                            <input type="text" [(ngModel)]="newPhoneNumber">
+                            <button class="edit-btn" (click)="updatePhoneNumber()" >update</button>
+                    </ng-template>
                 </div>
             </div>
             
             <div class="profile-item">
-                <label>Bio:</label>
+                <label>Bio : {{userProfile.bio}} </label>
+                <ng-container *ngIf= "changeBio; then bio">
+                    
+                </ng-container>
                 <div class="profile-editable">
                     <span></span>
-                    <button class="edit-btn" >Edit</button>
+                    <button class="edit-btn" (click)="editBio()" >Edit</button>
+                    <ng-template #bio>
+                        <span></span>
+                            <input type="text" [(ngModel)]="newBio">
+                            <button class="edit-btn" (click)="updateBio()" >update</button>
+                    </ng-template>
                 </div>
             </div>
             
             <div class="profile-item center">
-                <button class="change-password-btn" >Change Password</button>
+                <button class="change-password-btn" (click)="editPassword()" >Change Password</button>
             </div>
+
+            <app-change-password *ngIf="changePassword"  (visibility)="editPassword()" ></app-change-password>
         </section>
     </main>
 </div>

@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-search',
@@ -6,10 +9,34 @@ import { Component } from '@angular/core';
   templateUrl: './search.component.html',
   styleUrl: './search.component.css'
 })
-export class SearchComponent {
+export class SearchComponent implements OnInit {
 
-  searchQuery!:string
+  constructor(private http:HttpClient){}
 
-  sers: string[] = ['Alice', 'Bob', 'Charlie', 'David', 'Eve', 'Frank', 'Grace', 'Henry'];
+  username = new FormControl<string>('')
+  users!:any[]
+
+  ngOnInit(): void {
+
+    this.username.valueChanges.pipe(debounceTime(500)).subscribe(
+      {
+        next:(username)=>{
+
+          this.http.get(`http://localhost:200/getUsers/${username}`,{withCredentials:true}).subscribe({
+            next:(res:any)=>{
+
+              
+              
+              this.users = res.users
+
+              console.log(this.users);
+
+            }
+          })
+          
+        }
+      }
+    )
+  }
 
 }

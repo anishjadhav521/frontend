@@ -13,11 +13,11 @@
     <div class="content">
         <div class="feed">
             <h2>Search Users</h2>
-            <input type="text" [(ngModel)]="searchQuery" class="modal-content input" placeholder="Search by username...">
+            <input type="text" [formControl]="username" class="modal-content input" placeholder="Search by username...">
             <ul class="suggestions">
-                <li *ngFor="let user of sers" class="user-item">
-                    <img [src]="" alt="Profile" class="avatar">
-                    <button >username</button>
+                <li *ngFor="let user of users" class="user-item">
+                    <img [src]="user.profilePic" alt="Profile" class="avatar">
+                    <button >{{user.userName}}</button>
                 </li>
             </ul>
         </div>

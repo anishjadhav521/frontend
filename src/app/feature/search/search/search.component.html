@@ -17,7 +17,7 @@
             <ul class="suggestions">
                 <li *ngFor="let user of users" class="user-item">
                     <img [src]="user.profilePic" alt="Profile" class="avatar">
-                    <button >{{user.userName}}</button>
+                    <button (click)="openProfile(user.userName)">{{user.userName}}</button>
                 </li>
             </ul>
         </div>

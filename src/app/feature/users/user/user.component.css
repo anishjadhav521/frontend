@@ -1,0 +1,223 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    background: linear-gradient(to right, #f3f4f6, #e5e7eb);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
+  /* Page Layout */
+  .page-container {
+    display: flex;
+    width: 100%;
+    max-width: 1400px;
+    gap: 20px;
+    padding: 20px;
+  }
+  
+  /* Sidebar */
+  .sidebar {
+    width: 260px;
+    background: rgba(4, 120, 87, 0.9);
+    color: white;
+    padding: 20px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(12px);
+    height: 100vh;  /* Sidebar takes full height */
+    position: sticky;
+    top: 0;
+  }
+  
+  .sidebar h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+  }
+  
+  .sidebar ul li {
+    margin-bottom: 15px;
+  }
+  
+  .sidebar ul li button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(135deg, #22c55e, #047857);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    border-radius: 10px;
+    transition: all 0.3s ease-in-out;
+  }
+  
+  .sidebar ul li button:hover {
+    background: linear-gradient(135deg, #16a34a, #065f46);
+    transform: scale(1.05);
+  }
+  
+  /* Main Content Area */
+  .main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+  }
+  
+  /* Profile Header */
+  .profile-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+  
+  .profile-header {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 30px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+    width: 90%;
+  }
+  
+  .large-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 4px solid #16a34a;
+  }
+  
+  .profile-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .profile-info h2 {
+    font-size: 1.8rem;
+    margin-bottom: 5px;
+  }
+  
+  .bio {
+    font-size: 1rem;
+    color: #4b5563;
+    margin-bottom: 10px;
+  }
+  
+  .profile-stats {
+    display: flex;
+    gap: 15px;
+    font-size: 1rem;
+    margin-bottom: 15px;
+  }
+  
+  .follow-btn {
+    padding: 12px 20px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    background: #22c55e;
+    color: white;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .follow-btn.followed {
+    background: #d1d5db;
+    color: black;
+  }
+  
+  .follow-btn:hover {
+    transform: scale(1.05);
+  }
+  
+  /* Posts Grid */
+  .posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 15px;
+    width: 90%;
+    margin: 0 auto;
+    padding-top: 20px;
+  }
+  
+  /* Post */
+  .post {
+    background: white;
+    border-radius: 12px;
+    padding: 15px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease-in-out;
+    overflow: hidden;
+  }
+  
+  .post:hover {
+    transform: translateY(-5px);
+  }
+  
+  .post-header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .post-image {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    object-fit: cover;
+  }
+  
+  .post-footer {
+    margin-top: 10px;
+    text-align: left;
+  }
+  
+  /* Like & Comment Buttons */
+  .post-actions {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .like-button,
+  .comment-button {
+    padding: 8px 14px;
+    font-size: 0.9rem;
+    border: none;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    background: #e5e7eb;
+    color: #333;
+  }
+  
+  .like-button.liked {
+    background: #16a34a;
+    color: white;
+  }
+  
+  .like-button:hover,
+  .comment-button:hover {
+    transform: scale(1.05);
+  }
+  

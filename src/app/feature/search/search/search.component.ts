@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import  { Router } from '@angular/router';
 import { debounceTime } from 'rxjs';
 
 @Component({
@@ -11,7 +12,7 @@ import { debounceTime } from 'rxjs';
 })
 export class SearchComponent implements OnInit {
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient , private router:Router){}
 
   username = new FormControl<string>('')
   users!:any[]
@@ -37,6 +38,13 @@ export class SearchComponent implements OnInit {
         }
       }
     )
+  }
+
+  openProfile(username:string){
+
+    this.router.navigate(['/users',username])
+
+
   }
 
 }

@@ -6,8 +6,6 @@ import { Subject } from 'rxjs';
 })
 export class UserService implements OnInit {
 
-
-  userSubject = new Subject()
   user:any
 
   constructor() { 

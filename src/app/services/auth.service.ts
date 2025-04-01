@@ -1,23 +1,38 @@
 import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private backend:HttpClient , private router:Router) { 
-
-
-  }
+  constructor(private http:HttpClient , private router:Router ,private userService:UserService) {  }
 
   logIn(user:any){
 
-    this.backend.post('http://localhost:200/login',user,{withCredentials:true}).subscribe({
+    this.http.post('http://localhost:200/login',user,{withCredentials:true}).subscribe({
       next : (res:any)=>{
         
         alert("logged in")
+        
+        
+        this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
+
+          next: (res: any) => {
+    
+            this.userService.user = res.user[0]
+            
+          },
+    
+          error: (res) => {
+    
+            this.router.navigate(['/login'])
+    
+          }
+        })
+
         this.router.navigate(['/home'])
 
       },
@@ -52,7 +67,7 @@ export class AuthService {
   
   signUp(credential:any){
 
-    this.backend.post('http://localhost:200/signup',credential).subscribe(
+    this.http.post('http://localhost:200/signup',credential).subscribe(
 
       (res:any)=>alert(res.msg)
     )

@@ -42,7 +42,7 @@ export class SearchComponent implements OnInit {
 
   openProfile(username:string){
 
-    this.router.navigate(['/users',username])
+    this.router.navigate(['/users/user',username])
 
 
   }

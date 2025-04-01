@@ -3,8 +3,8 @@
     <div class="sidebar">
       <h2>Menu</h2>
       <ul>
-        <li><button>Home</button></li>
-        <li><button>Explore</button></li>
+        <li><button routerLink="/home">Home</button></li>
+        <li><button routerLink="/search">Explore</button></li>
         <li><button>Notifications</button></li>
         <li><button>Messages</button></li>
       </ul>
@@ -16,18 +16,24 @@
       <!-- Profile Header -->
       <div class="profile-container">
         <div class="profile-header">
-          <img src="{{ user.profilePic }}" alt="Profile Picture" class="avatar large-avatar" />
+          <img [src]="user.profilePic" alt="Profile Picture" class="avatar large-avatar" />
           <div class="profile-info">
-            <h2>{{ user.username }}</h2>
+            <h2>{{ user.userName }}</h2>
             <p class="bio">{{ user.bio }}</p>
             <div class="profile-stats">
-              <span><b>{{ user.posts.length }}</b> Posts</span>
-              <span><b>{{ user.followers }}</b> Followers</span>
-              <span><b>{{ user.following }}</b> Following</span>
+              <span><b>{{ user.user.post.length }}</b> Posts</span>
+              <span><b>{{followersCount}}</b> Followers</span>
+              <span><b>{{followingCount}}</b> Following</span>
             </div>
-            <button (click)="toggleFollow()" [ngClass]="{ 'followed': isFollowing }" class="follow-btn">
-              {{ isFollowing ? 'Unfollow' : 'Follow' }}
-            </button>
+            <div *ngIf="isVisible">
+              <!-- <button (click)="followUser()" [ngClass]="{ 'followed': isFollowing }" class="follow-btn">
+                {{ isFollowing ? 'Unfollow' : 'Follow' }}
+              </button> -->
+              <button *ngIf="isFollowing" (click)="unFollowUser()" class="follow-btn" [ngClass]="isFollowing">unfollow</button>
+              <button *ngIf="!isFollowing" (click)="followUser()"  class="follow-btn">follow</button>
+            </div>
+            
+            <!-- <button (click)="followUser()">follow</button> -->
           </div>
         </div>
       </div>
@@ -36,17 +42,17 @@
       <div class="feed">
         <h2>Posts</h2>
         <div class="posts-grid">
-          <div *ngFor="let post of user.posts" class="post">
+          <div *ngFor="let post of user.user.post" class="post">
             <div class="post-header">
-              <img src="{{ user.profilePic }}" alt="Profile Picture" class="avatar" />
+              <img [src]=" user.profilePic " alt="Profile Picture" class="avatar" />
               <span>{{ user.username }}</span>
             </div>
-            <img [src]="post.image" alt="Post Image" class="post-image" />
+            <img [src]="post.imgUrl" alt="Post Image" class="post-image" />
             <div class="post-footer">
               <p><b>{{ user.username }}</b> {{ post.caption }}</p>
               <div class="post-actions">
-                <button (click)="likePost(post)" [ngClass]="{ 'liked': post.liked }" class="like-button">
-                  ❤️ {{ post.likes }}
+                <button (click)="likePost(post)" [ngClass]="{ 'liked': post.like.isLiked }" class="like-button">
+                  ❤️ {{ post.like.count }}
                 </button>
                 <button class="comment-button">💬 {{ post.comments.length }}</button>
               </div>

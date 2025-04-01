@@ -31,11 +31,37 @@ export class ChatComponent implements OnInit {
     });
   }
 
-  sendMessage() {
-    if (this.messageContent.trim()) {
-      this.chatService.sendMessage(this.userId, this.receiverId, this.messageContent);
-      this.messages.push({ senderId: this.userId, content: this.messageContent });
-      this.messageContent = "";
-    }
-  }
+//   sendMessage() {
+//     if (this.messageContent.trim()) {
+//       this.chatService.sendMessage(this.userId, this.receiverId, this.messageContent);
+//       this.messages.push({ senderId: this.userId, content: this.messageContent });
+//       this.messageContent = "";
+//     }
+//   }
 }
+
+// users = [
+//   { name: 'Alice', avatar: 'assets/avatar1.jpg' },
+//   { name: 'Bob', avatar: 'assets/avatar2.jpg' },
+//   { name: 'Charlie', avatar: 'assets/avatar3.jpg' }
+// ];
+
+// userId = 1;
+// messageContent = '';
+// messages = [
+//   { senderId: 1, content: 'Hello!' },
+//   { senderId: 2, content: 'Hi, how are you?' },
+//   { senderId: 1, content: 'I am good, thanks!' }
+// ];
+
+// sendMessage(userName: string) {
+//   alert(`Message sent to ${userName}!`);
+// }
+
+// sendChatMessage() {
+//   if (this.messageContent.trim()) {
+//     this.messages.push({ senderId: this.userId, content: this.messageContent });
+//     this.messageContent = '';
+//   }
+// }
+// }

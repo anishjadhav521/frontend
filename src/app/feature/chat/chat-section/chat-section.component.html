@@ -1,0 +1,24 @@
+<div class="container">
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><button>Home</button></li>
+            <li><button>Messages</button></li>
+            <li><button>Profile</button></li>
+            <li><button>Settings</button></li>
+        </ul>
+    </div>
+    
+    <!-- Messages Section -->
+    <div class="messages">
+        <h2>Users</h2>
+        <ul class="user-list">
+            <li *ngFor="let user of users" class="user-item">
+                <img [src]="user.avatar" [alt]="user.name" class="avatar">
+                <span>{{ user.name }}</span>
+                <button class="message-button" (click)="sendMessage(user.name)">Message</button>
+            </li>
+        </ul>
+    </div>
+</div>

@@ -39,15 +39,20 @@ export class RegisterComponent implements OnInit {
       phoneNumber : new FormControl('',[
         Validators.required
       ]),
-      fullName : new FormControl('',[Validators.required,Validators.minLength(20)])
+      fullName : new FormControl('',[Validators.required,Validators.maxLength(20)])
     }, { validators: this.passwordMatchValidator });
 
     
   }
 
   signUp() {
+
+    console.log(this.RegistrationForm);
     
     if (this.RegistrationForm.valid) {
+
+     
+      
 
       this.authService.signUp(this.RegistrationForm.value)
        

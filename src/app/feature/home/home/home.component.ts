@@ -22,44 +22,64 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
+    if(!this.userService.user){
 
-      next: (res: any) => {
+      this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
 
-        this.userName = res.user[0].profile.userName
-
-        this.userService.user = res.user[0]
-      
-        this.posts = res.user[0].post
-
-        this.posts.forEach((post: any) => {
-
-          post.like.LikedBy.forEach(
-            (obj: any) => {
-
-              console.log(this.userService.user.userId);
-              
-              if (obj.userId == this.userService.user.userId) {
-
-                post.like.isLiked = true;
-
-              }
-            })
-        });
+        next: (res: any) => {
+  
+          this.userName = res.user[0].profile.userName
+  
+          this.userService.user = res.user[0]
         
-      },
+          this.posts = res.user[0].post
 
-      error: (res) => {
+          console.log(this.posts[0].imgUrl);
+          
+  
+          this.posts.forEach((post: any) => {
+  
+            post.like.LikedBy.forEach(
+              (obj: any) => {
+  
+                console.log(this.userService.user.userId);
+                
+                if (obj.userId == this.userService.user.userId) {
+  
+                  post.like.isLiked = true;
+  
+                }
+              })
+          });
+          
+        },
+  
+        error: (res) => {
+  
+          this.router.navigate(['/login'])
+  
+        }
+      })
 
-        this.router.navigate(['/login'])
+    }
 
-      }
-    })
+    this.userName = this.userService.user.profile.userName
+    this.posts = this.userService.user.post
 
-    // this.posts = [
-    //   { id: 1, username: 'Alice', imgUrl: 'assets/user1.jpg', caption: 'Beautiful day!', liked: false, likes: 10 },
-    //   { id: 2, username: 'Bob', imgUrl: 'assets/user2.jpg', caption: 'Love this place!', liked: false, likes: 5 }
-    // ];
+    this.posts.forEach((post: any) => {
+  
+      post.like.LikedBy.forEach(
+        (obj: any) => {
+
+          console.log(this.userService.user.userId);
+          
+          if (obj.userId == this.userService.user.userId) {
+
+            post.like.isLiked = true;
+
+          }
+        })
+    });
   }
 
   toggleLike(post: any) {
@@ -149,7 +169,7 @@ export class HomeComponent implements OnInit {
       updatedLikes: likes
     }
 
-    this.http.post('http://localhost:200/updateLike', updates, { withCredentials: true }).subscribe(
+    this.http.patch('http://localhost:200/updateLike', updates, { withCredentials: true }).subscribe(
 
       {
         next: (res: any) => {

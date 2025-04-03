@@ -31,8 +31,9 @@
             <span *ngIf="post.like.isLiked">👍 Liked</span>
             <span *ngIf="!post.like.isLiked">👍 Like</span>
           </button>
-          <button class="comment-button">💬 {{ post.comments.length }}</button>
           <span>{{ post.like.count }} Likes</span>
+          <button class="comment-button" (click)="openComments()">💬 {{ post.comments.length }}</button>
+          <ng-container #container></ng-container>
         </div>
       </div>
     </section>

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, viewChild, ViewContainerRef, type ComponentRef } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
 import { NotificationService } from '../../../services/notification.service';
+import { CommentsComponent } from '../../../shared/components/comments/comments.component';
 
 
 @Component({
@@ -200,6 +201,23 @@ export class HomeComponent implements OnInit {
       }
 
     )
+
+  }
+
+  @ViewChild('container',{read:ViewContainerRef})
+  vcr ?: ViewContainerRef;
+
+  #component?:ComponentRef<any>
+
+  openComments(){
+
+    this.#component = this.vcr?.createComponent(CommentsComponent)
+ 
+  }
+
+  destroyComments(){
+
+    
 
   }
 

@@ -19,7 +19,8 @@ import { CommentsComponent } from './components/comments/comments.component';
   ],
   exports:[
     FollowersComponent,
-    FollowingComponent
+    FollowingComponent,
+    CommentsComponent
   ]
 })
 export class SharedModule { }

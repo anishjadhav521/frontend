@@ -70,4 +70,10 @@
     text-align: center;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
     transition: all 0.3s ease;
-  }
+
+    display: flex;           /* Enable flexbox */
+    flex-direction: column;  /* Stack children vertically */
+    align-items: center;     /* Center horizontally */
+    justify-content: center; /* Center vertically */
+    height: 70vh;            /* Set a height so content is centered */
+}

@@ -1,0 +1,25 @@
+<div class="container">
+    <!-- Sidebar Menu -->
+    <div class="sidebar">
+        <h2>Menu</h2>
+        <ul>
+            <li><button>Home</button></li>
+            <li><button>Messages</button></li>
+            <li><button>Profile</button></li>
+            <li><button>Settings</button></li>
+        </ul>
+    </div>
+    
+    <!-- Messages Section -->
+    <div class="messages">
+        <h2>followers</h2>
+        <ul class="user-list">
+            <li *ngFor="let follower of followers" class="user-item">
+                <img [src]="follower.avatar" [alt]="follower.followers.userName" class="avatar">
+                <span>{{ follower.followers.userName }}</span>
+                <!-- <button (click)="openProfile(follower.followers.userName)">profile</button> -->
+                <!-- <button class="message-button" (click)="sendMessage(user.followers.id)">Message</button> -->
+            </li>
+        </ul>
+    </div>
+</div>

@@ -12,12 +12,12 @@
     
     <!-- Messages Section -->
     <div class="messages">
-        <h2>Users</h2>
+        <h2>following</h2>
         <ul class="user-list">
-            <li *ngFor="let user of users" class="user-item">
-                <img [src]="user.avatar" [alt]="user.followers.userName" class="avatar">
-                <span>{{ user.followers.userName }}</span>
-                <button class="message-button" (click)="sendMessage(user.followers.id)">Message</button>
+            <li *ngFor="let following of followings" class="user-item">
+                <img [src]="following.following.profilePic" [alt]="following.following.userName" class="avatar">
+                <span>{{ following.following.userName }}</span>
+                <!-- <button class="message-button" (click)="sendMessage(user.followers.id)">Message</button> -->
             </li>
         </ul>
     </div>

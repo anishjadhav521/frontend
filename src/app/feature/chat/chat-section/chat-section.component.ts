@@ -1,6 +1,7 @@
 import  { HttpClient } from '@angular/common/http';
 import { Component, type OnInit } from '@angular/core';
 import  { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chat-section',
@@ -10,13 +11,16 @@ import  { UserService } from '../../../services/user.service';
 })
 export class ChatSectionComponent implements OnInit{
 
-  constructor(private http :HttpClient , private userService:UserService){}
+  constructor(private http :HttpClient , private userService:UserService ,private router:Router){}
 
-  users = [
-    { name: 'Alice', avatar: 'assets/avatar1.jpg' },
-    { name: 'Bob', avatar: 'assets/avatar2.jpg' },
-    { name: 'Charlie', avatar: 'assets/avatar3.jpg' }
-  ];
+  // users = [
+  //   { name: 'Alice', avatar: 'assets/avatar1.jpg' },
+  //   { name: 'Bob', avatar: 'assets/avatar2.jpg' },
+  //   { name: 'Charlie', avatar: 'assets/avatar3.jpg' }
+  // ];
+
+  users:any
+
   profileId!:number
   ngOnInit() {
 
@@ -26,7 +30,10 @@ export class ChatSectionComponent implements OnInit{
       
   }
 
-  sendMessage(username:string){
+  sendMessage(receiverId:any){
+
+    this.router.navigate(['/message/chat',receiverId])
+
 
 
   }
@@ -39,7 +46,9 @@ export class ChatSectionComponent implements OnInit{
       .subscribe({
         next: (res: any) => {
 
-          this.users=res
+          this.users=res.followers
+
+          console.log(res.followers);
 
           // this.followers = res.followers;
           // this.followersCount = this.followers.length;

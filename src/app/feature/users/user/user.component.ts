@@ -2,6 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
+import { FollowersFollowingService } from '../../../services/followers-following.service';
+import { NotificationService } from '../../../services/notification.service';
 
 @Component({
   selector: 'app-user',
@@ -13,7 +15,9 @@ export class UserComponent implements OnInit {
   constructor(
     private routes: ActivatedRoute,
     private http: HttpClient,
-    private userService: UserService
+    private userService: UserService,
+    private followersFollowing:FollowersFollowingService,
+    private notification:NotificationService
   ) {}
 
   user: any;
@@ -28,6 +32,8 @@ export class UserComponent implements OnInit {
   followings!: any[];
   followingCount: any;
 
+  mainUser:any
+
   ngOnInit() {
     if (!this.userService.user) {
       this.http
@@ -37,8 +43,8 @@ export class UserComponent implements OnInit {
             this.isFollowed();
 
             this.userService.user = res.user[0];
-            // console.log(this.userService.user.profile.id);
-
+            console.log(this.userService.user.profile.id);
+            this.mainUser = this.userService.user.profile.userName
             this.followerId = this.userService.user.profile.id;
 
             if (this.followingId === this.followerId) {
@@ -50,20 +56,17 @@ export class UserComponent implements OnInit {
         });
     }
 
-    let username;
+    let username
 
     this.routes.paramMap.subscribe(
       (param) => (username = param.get('username'))
     );
 
 
-    this.http
-      .get(`http://localhost:200/getUser/${username}`, {
-        withCredentials: true,
-      })
+    this.http.get(`http://localhost:200/getUser/${username}`, {withCredentials: true})
       .subscribe({
         next: (res: any) => {
-          console.log(res.user);
+          // console.log(res.user);
 
           this.profileId = res.user.id;
 
@@ -73,6 +76,7 @@ export class UserComponent implements OnInit {
           this.followerId = this.userService.user.profile.id;
 
           console.log(this.userService.user.userId);
+
           this.user.user.post.forEach((post: any) => {
             post.like.LikedBy.forEach((obj: any) => {
               console.log(this.userService.user.userId);
@@ -88,9 +92,14 @@ export class UserComponent implements OnInit {
             this.isVisible = true;
           }
 
+          this.mainUser = this.userService.user.profile.userName
+          console.log(this.mainUser);
+          
           this.isFollowed();
           this.getFollowers(this.profileId);
           this.getFollowing(this.profileId);
+
+    
         },
       });
   }
@@ -104,6 +113,17 @@ export class UserComponent implements OnInit {
       post.like.count = 0;
     }
     this.updateLikes(post.PostId, post.like.isLiked, post.like.count);
+
+    const notification ={
+
+      profileId : this.profileId,
+      notification : `${this.mainUser} liked your post`
+
+    }
+
+    this.notification.addNotification(notification).subscribe()
+
+
   }
 
   updateLikes(id: number, liked: boolean, likes: number) {
@@ -122,15 +142,12 @@ export class UserComponent implements OnInit {
 
   isFollowing: any;
 
-  isFollowed() {
-    this.http
-      .get(
-        `http://localhost:200/isFollow/${this.followingId}/${this.followerId}`,
-        { withCredentials: true }
-      )
-      .subscribe({
+  isFollowed() {this.http.get(`http://localhost:200/isFollow/${this.followingId}/${this.followerId}`,{ withCredentials: true }).subscribe({
+
         next: (res: any) => {
           this.isFollowing = res.isFollowing;
+
+          // console.log(this.isFollowing); 
         },
       });
   }
@@ -139,19 +156,16 @@ export class UserComponent implements OnInit {
     this.isFollowing = !this.isFollowing;
     this.user.followers += this.isFollowing ? 1 : -1;
   
-    console.log(this.followingId);
+    // console.log(this.followingId);
 
-    this.http
-      .post(
-        'http://localhost:200/follow',
-        { followingId: this.followingId, followerId: this.followerId },
-        { withCredentials: true }
-      )
+    this.http.post('http://localhost:200/follow',{ followingId: this.followingId, followerId: this.followerId },{ withCredentials: true })
       .subscribe({
         next: (res: any) => {
-          console.log(res);
+          // console.log(res);
 
-          this.getFollowers(this.profileId);
+          // this.followersFollowing.getFollowers(this.profileId);
+
+          this.getFollowers(this.profileId)
           this.getFollowing(this.profileId);
         },
         error: (err) => {
@@ -160,10 +174,20 @@ export class UserComponent implements OnInit {
           alert(err.error.msg);
         },
       });
+      
+      const notification ={
+
+        profileId : this.profileId,
+        notification : `${this.mainUser} started following you`
+  
+      }
+  
+      this.notification.addNotification(notification).subscribe()
   }
 
   unFollowUser() {
     this.isFollowing = !this.isFollowing;
+    this.user.followers += this.isFollowing ? 1 : -1;
     this.http
       .post(
         'http://localhost:200/unFollow',
@@ -172,8 +196,18 @@ export class UserComponent implements OnInit {
       )
       .subscribe({
         next: (res: any) => {
-          console.log(res);
-          this.getFollowers(this.profileId);
+          // console.log(res);
+          // this.followersFollowing.getFollowers(this.profileId);
+
+          this.getFollowers(this.profileId)
+
+          // this.followersFollowing.getFollowers(this.profileId).subscribe({
+          //   next:(array)=>{
+          //     this.followers = array
+      
+          //     console.log(this.followers);
+          //   }
+          //  })
           this.getFollowing(this.profileId);
         },
         error: (err) => {
@@ -186,39 +220,52 @@ export class UserComponent implements OnInit {
   
 
   getFollowers(profileId: any) {
-    this.http
-      .get(`http://localhost:200/getFollowers/${profileId}`, {
-        withCredentials: true,
-      })
-      .subscribe({
-        next: (res: any) => {
 
-          this.followers = res.followers;
-          this.followersCount = this.followers.length;
+     this.followersFollowing.getFollowers(profileId).subscribe({
 
-        },
-        error: (err) => {
-          alert(err.error.msg);
-        },
-      });
+      next:(res)=>{
+        this.followers = res
+        this.followersCount = this.followers.length
+
+        // console.log(res);
+        
+      }
+     });
+
+    // console.log(this.followers);
+    
   }
 
   getFollowing(profileId: any) {
-    this.http
-      .get(`http://localhost:200/getFollowing/${profileId}`, {
-        withCredentials: true,
-      })
-      .subscribe({
-        next: (res: any) => {
-    
-          this.followings = res.followings;
-          this.followingCount = this.followings.length;
 
-        },
-        error: (err) => {
+    this.followersFollowing.getFollowing(profileId).subscribe({
+      
+      next:(res:any)=>{
+
+        this.followings = res;
         
-          alert(err.error);
-        },
-      });
+        this.followingCount = this.followings.length;
+
+      }
+    })
+
+
+
+    // this.http
+    //   .get(`http://localhost:200/getFollowing/${profileId}`, {
+    //     withCredentials: true,
+    //   })
+    //   .subscribe({
+    //     next: (res: any) => {
+    
+    //       this.followings = res.followings;
+    //       this.followingCount = this.followings.length;
+
+    //     },
+    //     error: (err) => {
+        
+    //       alert(err.error);
+    //     },
+    //   });
   }
 }

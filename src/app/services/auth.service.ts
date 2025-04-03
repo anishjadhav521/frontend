@@ -2,20 +2,22 @@ import { HttpClient, HttpErrorResponse, HttpResponse } from '@angular/common/htt
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
+import { MessageService } from 'primeng/api';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  constructor(private http:HttpClient , private router:Router ,private userService:UserService) {  }
+  constructor(private http:HttpClient , private router:Router ,private userService:UserService,private ms:MessageService) {  }
 
   logIn(user:any){
 
     this.http.post('http://localhost:200/login',user,{withCredentials:true}).subscribe({
       next : (res:any)=>{
         
-        alert("logged in")
+        this.ms.add({severity: 'success', summary: 'Success', detail: 'logged in' })
+        // alert("logged in")
         
         
         this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({

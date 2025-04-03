@@ -9,7 +9,7 @@ export class ChatService {
   private socket: Socket;
 
   constructor() {
-    this.socket = io("http://localhost:3000"); // Connect to Express server
+    this.socket = io("http://localhost:200"); // Connect to Express server
   }
 
   // Register user ID with socket
@@ -17,8 +17,11 @@ export class ChatService {
     this.socket.emit("register", userId);
   }
 
-  // Send a private message
+  // Send  message
   sendMessage(senderId: number, receiverId: number, content: string) {
+    
+    console.log(senderId,receiverId,content);
+    
     this.socket.emit("private_message", { senderId, receiverId, content });
   }
 

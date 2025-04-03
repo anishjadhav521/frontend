@@ -272,3 +272,8 @@
   .like-button:hover {
     transform: scale(1.05);
   }
+
+  p-message {
+
+    margin : 10px
+  }

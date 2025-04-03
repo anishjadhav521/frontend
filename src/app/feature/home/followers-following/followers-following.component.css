@@ -1,0 +1,24 @@
+
+  .profile-stats {
+    display: flex;
+    gap: 20px;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+    justify-content: center; /* This will center the flex items horizontally */
+    align-items: center; /* This will center the flex items vertically */
+    background: linear-gradient(135deg, #22c55e, #047857);
+    border-radius: 8px;
+    color: aliceblue;
+    margin: top;
+}
+
+a{
+
+  text-decoration: none;
+  color: white;
+
+}
+
+a:hover{
+  color: #07130b;
+}

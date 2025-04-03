@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { NotificationService } from '../../../services/notification.service';
 
 
 @Component({
@@ -17,8 +18,13 @@ export class HomeComponent implements OnInit {
   caption: string = ''
   isPostFormVisible: boolean = false;
   userName?: string
+  profileId : any
+  postLength:any
+  visible2: boolean = false;
 
-  constructor(private http: HttpClient, private userService: UserService, private router: Router) { }
+
+
+  constructor(private http: HttpClient, private userService: UserService, private router: Router,private notification:NotificationService) { }
 
   ngOnInit(): void {
 
@@ -29,10 +35,15 @@ export class HomeComponent implements OnInit {
         next: (res: any) => {
   
           this.userName = res.user[0].profile.userName
+
+          this.profileId = res.user[0].profile.id
+          console.log(this.profileId);
+          
   
           this.userService.user = res.user[0]
         
           this.posts = res.user[0].post
+          this.postLength = this.posts.length
 
           console.log(this.posts[0].imgUrl);
           
@@ -65,6 +76,7 @@ export class HomeComponent implements OnInit {
 
     this.userName = this.userService.user.profile.userName
     this.posts = this.userService.user.post
+    this.postLength = this.posts.length
 
     this.posts.forEach((post: any) => {
   
@@ -91,6 +103,16 @@ export class HomeComponent implements OnInit {
     }
 
     this.updateLikes(post.PostId, post.like.isLiked, post.like.count)
+
+    const notification ={
+
+      profileId : this.profileId,
+      notification : `${this.userName} liked your post`
+
+    }
+
+    this.notification.addNotification(notification).subscribe()
+
   }
 
   togglePostForm() {
@@ -179,6 +201,30 @@ export class HomeComponent implements OnInit {
 
     )
 
+  }
+
+  notifications : any
+
+  async openNotification(){
+
+    console.log("noti");
+    
+
+    await this.notification.getNotification(this.profileId).subscribe({
+
+      next:(res)=>{
+
+        console.log(this.profileId);
+        
+          
+        console.log(res);
+        
+        this.notifications = res
+
+      }
+    })
+
+    this.visible2 = !this.visible2
   }
 }
 

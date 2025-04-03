@@ -22,8 +22,9 @@
             <p class="bio">{{ user.bio }}</p>
             <div class="profile-stats">
               <span><b>{{ user.user.post.length }}</b> Posts</span>
-              <span><b>{{followersCount}}</b> Followers</span>
-              <span><b>{{followingCount}}</b> Following</span>
+              <span><b>{{followersCount}}</b><a routerLink="../../display/true/{{profileId}}">Followers</a> </span>
+              <span><a >{{followingCount}}</a> <a routerLink="../../display/false/{{profileId}}">Following</a></span>
+               
             </div>
             <div *ngIf="isVisible">
               <!-- <button (click)="followUser()" [ngClass]="{ 'followed': isFollowing }" class="follow-btn">
@@ -34,7 +35,7 @@
             </div>
             
             <!-- <button (click)="followUser()">follow</button> -->
-          </div>
+          </div>  
         </div>
       </div>
   

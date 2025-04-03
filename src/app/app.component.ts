@@ -7,5 +7,9 @@ import { Component } from '@angular/core';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
+
+
   title = 'frontend';
+  visible2: boolean = false;
+
 }

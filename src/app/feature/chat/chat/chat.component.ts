@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import  { ChatService } from "../../../services/chat.service";
 import  { UserService } from "../../../services/user.service";
+import { ActivatedRoute } from "@angular/router";
 // import { ChatService } from "../services/chat.service";
 
 @Component({
@@ -12,16 +13,21 @@ import  { UserService } from "../../../services/user.service";
 export class ChatComponent implements OnInit {
 
 
-  userId !:number  // Should be dynamically set
-  receiverId = "user456"; // Select dynamically
+  userId !:any  // Should be dynamically set
+  receiverId!:any // Select dynamically
   messages: { senderId: string; content: string }[] = [];
   messageContent = "";
 
-  constructor(private chatService: ChatService , private userService:UserService) {}
+  constructor(private chatService: ChatService , private userService:UserService ,private router : ActivatedRoute) {}
 
   ngOnInit() {
 
     this.userId=this.userService.user.profile.id
+    this.router.paramMap.subscribe((param)=>{
+
+      this.receiverId = Number(param.get('receiverId'))
+
+    })
 
 
     this.chatService.registerUser(this.userId);
@@ -31,13 +37,13 @@ export class ChatComponent implements OnInit {
     });
   }
 
-//   sendMessage() {
-//     if (this.messageContent.trim()) {
-//       this.chatService.sendMessage(this.userId, this.receiverId, this.messageContent);
-//       this.messages.push({ senderId: this.userId, content: this.messageContent });
-//       this.messageContent = "";
-//     }
-//   }
+  sendMessage() {
+    if (this.messageContent.trim()) {
+      this.chatService.sendMessage(this.userId, this.receiverId, this.messageContent);
+      this.messages.push({ senderId: this.userId, content: this.messageContent });
+      this.messageContent = "";
+    }
+  }
 }
 
 // users = [

@@ -32,8 +32,7 @@
             <span *ngIf="!post.like.isLiked">👍 Like</span>
           </button>
           <span>{{ post.like.count }} Likes</span>
-          <button class="comment-button" (click)="openComments()">💬 {{ post.comments.length }}</button>
-          <ng-container #container></ng-container>
+          <button class="comment-button" (click)="openComments(post.PostId)">💬 {{ post.comments.length }}</button>
         </div>
       </div>
     </section>
@@ -66,3 +65,9 @@
       <p-message  severity="success" *ngFor="let notificaiton of notifications">{{notificaiton.notification}}</p-message>
   </div>
 </p-drawer>
+
+<!-- <ng-container #container >
+  <button (click)="closeComments()">close</button>
+</ng-container> -->
+
+<app-comments *ngIf="IsVisible" (emmitter)="closeComments($event)" [PostId]="PId"  [profileId]="profileId"></app-comments>

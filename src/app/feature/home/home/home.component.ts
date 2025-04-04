@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   profileId : any
   postLength:any
   visible2: boolean = false;
+  profileIdOfCommenter:any
 
 
 
@@ -204,19 +205,26 @@ export class HomeComponent implements OnInit {
 
   }
 
-  @ViewChild('container',{read:ViewContainerRef})
-  vcr ?: ViewContainerRef;
+  IsVisible:boolean =false
 
-  #component?:ComponentRef<any>
+  // @ViewChild('container',{read:ViewContainerRef})
+  // vcr ?: ViewContainerRef;
 
-  openComments(){
+  // #component?:ComponentRef<any>
+  PId:any
+  openComments(postId:any){
 
-    this.#component = this.vcr?.createComponent(CommentsComponent)
+    // this.#component = this.vcr?.createComponent(CommentsComponent)
+
+    this.IsVisible = !this.IsVisible
+    this.PId= postId
  
   }
 
-  destroyComments(){
+  closeComments(event:any){
 
+    // this.#component?.destroy()
+    this.IsVisible = event
     
 
   }

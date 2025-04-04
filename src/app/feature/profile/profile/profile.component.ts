@@ -171,5 +171,9 @@ export class ProfileComponent implements OnInit {
       });
   }
 
+  deactivateAccount(){}
+
+  onProfilePicSelected(event:any){}
+
 
 }

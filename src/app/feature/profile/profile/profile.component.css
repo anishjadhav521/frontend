@@ -145,3 +145,34 @@ body {
 .change-password-btn:hover {
     background: #9ca3af;
 }
+
+.profile-pic-section {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  .profile-pic {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  }
+  
+  .deactivate-btn {
+    background: linear-gradient(135deg, #ef4444, #991b1b);
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  
+  .deactivate-btn:hover {
+    background: linear-gradient(135deg, #dc2626, #7f1d1d);
+    transform: scale(1.05);
+  }
+  

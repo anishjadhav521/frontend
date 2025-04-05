@@ -9,13 +9,15 @@ import { DisplayComponent } from './display/display.component';
 import { SharedModule } from '../../shared/shared.module';
 import { DrawerModule } from 'primeng/drawer';
 import { Message } from 'primeng/message';
+import { PostsComponent } from './posts/posts.component';
 
 
 @NgModule({
   declarations: [
     HomeComponent,
     FollowersFollowingComponent,
-    DisplayComponent
+    DisplayComponent,
+    PostsComponent
   ],
   imports: [
     CommonModule,

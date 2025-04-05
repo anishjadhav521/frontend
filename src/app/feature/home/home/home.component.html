@@ -18,23 +18,10 @@
       <h2>Hey {{userName}} !!</h2>
 
       <app-followers-following *ngIf="profileId" [profileId]="profileId" [postLength]="postLength" ></app-followers-following>
-
-      <div *ngFor="let post of posts" class="post">
-        <div class="post-header">
-          <img src= "C:\Users\AnishJadhavINDev\Documents\final project\{{post.imgUrl}}" alt="User Avatar" class="avatar">
-          <h3>{{ post.username }}</h3>
-        </div>
-        <img [src]="post.imgUrl" alt="Post Image" class="post-image">
-        <div class="post-footer">
-          <p>{{ post.caption }}</p>
-          <button (click)="toggleLike(post)" [ngClass]="{'liked': post.like.isLiked}" class="like-button">
-            <span *ngIf="post.like.isLiked">👍 Liked</span>
-            <span *ngIf="!post.like.isLiked">👍 Like</span>
-          </button>
-          <span>{{ post.like.count }} Likes</span>
-          <button class="comment-button" (click)="openComments(post.PostId)">💬 {{ post.comments.length }}</button>
-        </div>
-      </div>
+      
+      <!-- <app-posts *ngFor="let post of posts" [post]="post" ></app-posts> -->
+      <app-posts *ngFor="let post of posts" [post]="post" ></app-posts>
+      
     </section>
   </main>
 
@@ -70,4 +57,3 @@
   <button (click)="closeComments()">close</button>
 </ng-container> -->
 
-<app-comments *ngIf="IsVisible" (emmitter)="closeComments($event)" [PostId]="PId"  [profileId]="profileId"></app-comments>

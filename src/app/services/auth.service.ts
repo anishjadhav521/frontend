@@ -24,7 +24,7 @@ export class AuthService {
 
           next: (res: any) => {
     
-            this.userService.user = res.user[0]
+            this.userService.user = res.user
             
           },
     

@@ -23,7 +23,7 @@ export class UserComponent implements OnInit {
   user: any;
   followingId: any;
   followerId: any;
-  isVisible!: boolean;
+  isVisible: boolean = true
   profileId: any;
 
   followers!: any[];
@@ -47,6 +47,9 @@ export class UserComponent implements OnInit {
             this.mainUser = this.userService.user.profile.userName
             this.followerId = this.userService.user.profile.id;
 
+            console.log(this.followerId,this.followingId);
+            
+
             if (this.followingId === this.followerId) {
               this.isVisible = false;
             } else {
@@ -66,8 +69,8 @@ export class UserComponent implements OnInit {
     this.http.get(`http://localhost:200/getUser/${username}`, {withCredentials: true})
       .subscribe({
         next: (res: any) => {
-          // console.log(res.user);
-
+          console.log(res.user.user.post);
+          
           this.profileId = res.user.id;
 
           this.user = res.user;
@@ -75,10 +78,12 @@ export class UserComponent implements OnInit {
           this.followingId = res.user.id;
           this.followerId = this.userService.user.profile.id;
 
+          console.log(this.followerId,this.followingId);
+
           console.log(this.userService.user.userId);
 
           this.user.user.post.forEach((post: any) => {
-            post.like.LikedBy.forEach((obj: any) => {
+            post.like.forEach((obj: any) => {
               console.log(this.userService.user.userId);
 
               if (obj.userId == this.userService.user.userId) {
@@ -86,11 +91,28 @@ export class UserComponent implements OnInit {
               }
             });
           });
+
+          // this.post.like.forEach(
+          //   (obj: any) => {
+      
+          //     console.log(this.userService.user.userId);
+              
+          //     if (obj.user.userId == this.userService.user.userId) {
+      
+          //       this.liked= true;
+      
+          //     }
+          //   })
+
+
+
           if (this.followingId === this.followerId) {
             this.isVisible = false;
           } else {
             this.isVisible = true;
           }
+
+          console.log(this.followerId,this.followingId);
 
           this.mainUser = this.userService.user.profile.userName
           console.log(this.mainUser);

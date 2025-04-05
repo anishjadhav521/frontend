@@ -26,21 +26,12 @@
   
     <!-- User List -->
     <div class="user-list">
-      <div class="user-card">
-        <img class="user-avatar" src="https://i.pravatar.cc/40?img=1" alt="User">
-        <span class="username">admin_john</span>
+      <div class="user-card" *ngFor="let user of users">
+        <img class="user-avatar" [src] = user.profilePic alt="User">
+        <span class="username">{{user.userName}}</span>
         <div class="user-actions">
-          <button class="ban-btn" title="Ban Account">🚫</button>
-          <button class="delete-btn" title="Delete User">🗑️</button>
-        </div>
-      </div>
-  
-      <div class="user-card">
-        <img class="user-avatar" src="https://i.pravatar.cc/40?img=2" alt="User">
-        <span class="username">jane_doe</span>
-        <div class="user-actions">
-          <button class="ban-btn" title="Ban Account">🚫</button>
-          <button class="delete-btn" title="Delete User">🗑️</button>
+          <button class="ban-btn" title="Ban Account" >🚫</button>
+          <button class="delete-btn" title="Delete User" (click)="deleteUser(user.id)">🗑️</button>
         </div>
       </div>
   

@@ -23,6 +23,7 @@ export class HomeComponent implements OnInit {
   postLength:any
   visible2: boolean = false;
   profileIdOfCommenter:any
+  userId:any
 
 
 
@@ -36,31 +37,49 @@ export class HomeComponent implements OnInit {
 
         next: (res: any) => {
   
-          this.userName = res.user[0].profile.userName
+          this.userName = res.user.profile.userName
 
-          this.profileId = res.user[0].profile.id
+          this.profileId = res.user.profile.id
           console.log(this.profileId);
           
   
-          this.userService.user = res.user[0]
+          this.userService.user = res.user
         
-          this.posts = res.user[0].post
-          this.postLength = this.posts.length
+          this.posts = res.user.post
 
-          console.log(this.posts[0].imgUrl);
+
+          this.postLength = this.posts.length
+          
+
+          // console.log(this.posts[0].like[0].user);
+          
+
+          // console.log(this.posts[0].imgUrl);
           
   
           this.posts.forEach((post: any) => {
-  
-            post.like.LikedBy.forEach(
+
+            console.log(post.like.length);
+            this.likeCount = post.like.length
+
+          
+            post.like.forEach(
               (obj: any) => {
+
+                console.log(obj.user);
+                
   
                 console.log(this.userService.user.userId);
                 
-                if (obj.userId == this.userService.user.userId) {
+                if (obj.user.userId == this.userService.user.userId) {
   
-                  post.like.isLiked = true;
+                  this.liked= true;
+                  console.log(true);
+                  
   
+                }
+                else{
+                  this.liked=false
                 }
               })
           });
@@ -75,47 +94,36 @@ export class HomeComponent implements OnInit {
       })
 
     }
-
     this.userName = this.userService.user.profile.userName
     this.posts = this.userService.user.post
+
+    console.log(this.posts);
+    
+
     this.postLength = this.posts.length
 
     this.posts.forEach((post: any) => {
-  
-      post.like.LikedBy.forEach(
+
+      console.log(post);
+      this.likeCount = post.like.length
+      
+    
+      post.like.forEach(
         (obj: any) => {
 
           console.log(this.userService.user.userId);
           
-          if (obj.userId == this.userService.user.userId) {
+          if (obj.user.userId == this.userService.user.userId) {
 
-            post.like.isLiked = true;
+            this.liked= true;
 
           }
         })
     });
   }
 
-  toggleLike(post: any) {
-
-    post.like.isLiked = !post.like.isLiked;
-    post.like.count = post.like.isLiked ? post.like.count + 1 : post.like.count - 1;
-    if (post.like.count < 0) {
-      post.like.count = 0
-    }
-
-    this.updateLikes(post.PostId, post.like.isLiked, post.like.count)
-
-    const notification ={
-
-      profileId : this.profileId,
-      notification : `${this.userName} liked your post`
-
-    }
-
-    this.notification.addNotification(notification).subscribe()
-
-  }
+  liked!:boolean 
+  likeCount:any
 
   togglePostForm() {
 
@@ -184,50 +192,13 @@ export class HomeComponent implements OnInit {
   }
   likes?: number
 
-  updateLikes(id: number, liked: boolean, likes: number) {
-
-    const updates: any = {
-
-      postId: id,
-      updatedLiked: liked,
-      updatedLikes: likes
-    }
-
-    this.http.patch('http://localhost:200/updateLike', updates, { withCredentials: true }).subscribe(
-
-      {
-        next: (res: any) => {
-          this.likes = res.like
-        }
-      }
-
-    )
-
-  }
+  
 
   IsVisible:boolean =false
 
-  // @ViewChild('container',{read:ViewContainerRef})
-  // vcr ?: ViewContainerRef;
-
-  // #component?:ComponentRef<any>
+  
   PId:any
-  openComments(postId:any){
-
-    // this.#component = this.vcr?.createComponent(CommentsComponent)
-
-    this.IsVisible = !this.IsVisible
-    this.PId= postId
- 
-  }
-
-  closeComments(event:any){
-
-    // this.#component?.destroy()
-    this.IsVisible = event
-    
-
-  }
+  
 
   notifications : any
 
@@ -254,3 +225,32 @@ export class HomeComponent implements OnInit {
   }
 }
 
+
+
+// @ViewChild('container',{read:ViewContainerRef})
+  // vcr ?: ViewContainerRef;
+
+  // #component?:ComponentRef<any>
+
+
+
+// updateLikes(id: number, liked: boolean, likes: number) {
+
+//   const updates: any = {
+
+//     postId: id,
+//     updatedLiked: liked,
+//     updatedLikes: likes
+//   }
+
+//   this.http.patch('http://localhost:200/updateLike', updates, { withCredentials: true }).subscribe(
+
+//     {
+//       next: (res: any) => {
+//         this.likes = res.like
+//       }
+//     }
+
+//   )
+
+// }

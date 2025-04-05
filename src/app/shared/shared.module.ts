@@ -7,6 +7,7 @@ import { FollowingComponent } from './components/following/following.component';
 import { CommentsComponent } from './components/comments/comments.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
+import { PostsComponent } from './components/posts/posts.component';
 
 
 
@@ -14,7 +15,8 @@ import { ButtonModule } from 'primeng/button';
   declarations: [
     FollowersComponent,
     FollowingComponent,
-    CommentsComponent
+    CommentsComponent,
+    PostsComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { ButtonModule } from 'primeng/button';
   exports:[
     FollowersComponent,
     FollowingComponent,
-    CommentsComponent
+    CommentsComponent,
+    PostsComponent
   ]
 })
 export class SharedModule { }

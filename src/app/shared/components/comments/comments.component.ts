@@ -18,6 +18,9 @@ export class CommentsComponent implements OnInit {
      
     // this.getComments();
 
+    console.log("comm");
+    
+
     this.commentService.getComments(this.PostId).subscribe({
 
       next:(res:any)=>{
@@ -57,6 +60,8 @@ export class CommentsComponent implements OnInit {
       postId:this.PostId
 
     }
+    console.log(com);
+    
     if(!this.comments){
 
       this.comments = []

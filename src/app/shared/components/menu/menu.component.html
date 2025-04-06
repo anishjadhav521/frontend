@@ -1,5 +1,6 @@
-<aside class="sidebar">
+<!-- <aside class="sidebar"> -->
     <h2>Menu</h2>
+<div class="point">
     <ul>
       <li><button>Home</button></li>
       <li><button routerLink="/search">Explore</button></li>
@@ -9,8 +10,9 @@
       <li><button class="menu-btn">Logout</button></li>
     </ul>
     <button class="add-post-btn" (click)="togglePostForm()">+ Add Post</button>
+</div>
    
-</aside>
+<!-- </aside> -->
 
 <div class="modal" *ngIf="isPostFormVisible">
     <div class="modal-content">

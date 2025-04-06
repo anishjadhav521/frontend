@@ -1,5 +1,5 @@
   /* Sidebar */
-  .sidebar {
+  /* .sidebar {
     width: 260px;
     background: rgba(4, 120, 87, 0.85);
     color: white;
@@ -27,22 +27,22 @@
     margin-right: 10px;
     border: 2px solid #16a34a;
   }
-  
+
   .sidebar h2 {
     font-size: 1.6rem;
     margin-bottom: 20px;
     text-align: center;
   }
-  
-  .sidebar ul {
+   */
+   ul {
     list-style: none;
   }
   
-  .sidebar ul li {
+   ul li {
     margin-bottom: 15px;
   }
   
-  .sidebar ul li button {
+   ul li button {
     width: 100%;
     padding: 12px;
     background: linear-gradient(135deg, #22c55e, #047857);
@@ -54,7 +54,7 @@
     transition: all 0.3s ease;
   }
   
-  .sidebar ul li button:hover {
+   ul li button:hover {
     background: linear-gradient(135deg, #16a34a, #065f46);
     transform: scale(1.05);
   }

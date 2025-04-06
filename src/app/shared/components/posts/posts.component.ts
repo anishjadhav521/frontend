@@ -1,7 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from '../../../services/notification.service';
+import e from 'express';
 
 @Component({
   selector: 'app-posts',
@@ -22,14 +23,43 @@ export class PostsComponent implements OnInit {
   liked!:boolean
   isVisible!:boolean
 
+  @Output()
+  delete = new EventEmitter()
+
+  deleteVisible !: boolean;
+  commentLength!:any
+
   ngOnInit(): void {
+
+    this.commentLength = this.post.comments.length
+
+    this.profileId = this.userService.user.profile.id
     
     this.likeCount = this.post.likesCount
 
-    this.post.like.forEach(
-      (obj: any) => {
+    if(this.userService.user.profile.userName==this.post.userName){
 
-        console.log(this.userService.user.userId);
+      console.log("t");
+      
+      this.deleteVisible = true
+    }
+    else{
+      this.deleteVisible = false
+      console.log("f");
+    }
+
+    console.log(this.post.userName);
+    
+
+    this.post.like.forEach(
+      (obj: any) => { 
+
+
+
+        // console.log(this.userService.user.userId);
+        // console.log(obj);  
+        
+        // console.log(obj.user.userId == this.userService.user.userId);
         
         if (obj.user.userId == this.userService.user.userId) {
 
@@ -64,9 +94,11 @@ export class PostsComponent implements OnInit {
     const notification ={
 
       profileId : this.profileId,
-      notification : `${this.userName} liked your post`
+      notification : `${this.userService.user.profile.userName} liked your post`
 
     }
+    console.log(this.profileId);
+    
 
     this.notification.addNotification(notification).subscribe()
 
@@ -116,8 +148,22 @@ openComments(postId:any){
 closeComments(event:any){
 
   // this.#component?.destroy()
-  this.isVisible = event
+  console.log(event);
   
+  this.isVisible = event.value
+  this.commentLength = event.length
 
 }
+
+deletePost(postId:any){
+
+  // this.posts = this.posts.filter((post:any)=>post.PostId!=postId)
+
+  this.http.delete(`http://localhost:200/deletePost/${postId}`,{withCredentials:true}).subscribe()
+
+  this.delete.emit()
+
+  
+}
+
 }

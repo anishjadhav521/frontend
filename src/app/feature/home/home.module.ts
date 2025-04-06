@@ -9,7 +9,7 @@ import { DisplayComponent } from './display/display.component';
 import { SharedModule } from '../../shared/shared.module';
 import { DrawerModule } from 'primeng/drawer';
 import { Message } from 'primeng/message';
-import { PostsComponent } from './posts/posts.component';
+// import { PostsComponent } from './posts/posts.component';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { PostsComponent } from './posts/posts.component';
     HomeComponent,
     FollowersFollowingComponent,
     DisplayComponent,
-    PostsComponent
+    // PostsComponent
   ],
   imports: [
     CommonModule,

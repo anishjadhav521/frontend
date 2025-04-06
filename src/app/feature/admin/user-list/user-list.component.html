@@ -1,0 +1,13 @@
+<p>user-list works!</p>
+
+
+    <div class="user-card" >
+      <img class="user-avatar" [src] = user.profilePic alt="User">
+      <span class="username">{{user.userName}}</span>
+      <div class="user-actions">
+        <button class="ban-btn" title="Ban Account" >🚫</button>
+        <button class="delete-btn" title="Delete User" (click)="deleteUser(user.id)">🗑️</button>
+      </div>
+    </div>
+
+    

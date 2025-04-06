@@ -16,7 +16,8 @@ export class NotificationService {
     
     return this.http.get<any>(`http://localhost:200/getNotification/${profileId}`,{withCredentials:true}).pipe(
       map((res)=>{
-
+        console.log(res);
+        
         return res.notification
       })
     )

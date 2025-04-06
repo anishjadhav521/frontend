@@ -13,6 +13,8 @@ export class HomeComponent implements OnInit{
 
   constructor(private http : HttpClient, private adminService:AdminService){}
 
+  users!:any[]
+
   ngOnInit(): void {
 
    this.adminService.getAllUsers().subscribe({
@@ -20,7 +22,7 @@ export class HomeComponent implements OnInit{
     next:(res:any)=>{
 
       this.users = res.users
-      console.log(this.users[0].id);
+      console.log(res );
       
     },
     error:(err)=>{
@@ -32,26 +34,31 @@ export class HomeComponent implements OnInit{
 
   deleteUser(userId:any){ 
 
-    console.log(userId);
+    this.users = this.users.filter((user)=>user.userId != userId)
+
+
+
+
+    // console.log(userId);
     
-    this.adminService.deleteUser(userId).subscribe({
+    // this.adminService.deleteUser(userId).subscribe({
 
-      next:(res:any)=>{
+    //   next:(res:any)=>{
 
-        alert(res.msg)
+    //     alert(res.msg)
 
-      },
-      error:(err)=>{
+    //   },
+    //   error:(err)=>{
 
-        alert(err)
-      }
+    //     alert(err)
+    //   }
 
-    })
+    // })
   }
 
 
 
-    users!:any[]
+ 
 
   }
 

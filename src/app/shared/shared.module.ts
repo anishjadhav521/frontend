@@ -8,6 +8,8 @@ import { CommentsComponent } from './components/comments/comments.component';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
 import { PostsComponent } from './components/posts/posts.component';
+import { CommentComponent } from './components/comment/comment.component';
+import { MenuComponent } from './components/menu/menu.component';
 
 
 
@@ -16,7 +18,9 @@ import { PostsComponent } from './components/posts/posts.component';
     FollowersComponent,
     FollowingComponent,
     CommentsComponent,
-    PostsComponent
+    PostsComponent,
+    CommentComponent,
+    MenuComponent
   ],
   imports: [
     CommonModule,
@@ -28,7 +32,8 @@ import { PostsComponent } from './components/posts/posts.component';
     FollowersComponent,
     FollowingComponent,
     CommentsComponent,
-    PostsComponent
+    PostsComponent,
+    MenuComponent
   ]
 })
 export class SharedModule { }

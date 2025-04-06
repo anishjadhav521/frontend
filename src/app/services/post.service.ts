@@ -8,9 +8,9 @@ export class PostService {
 
   constructor(private http:HttpClient) { }
 
-  getPosts(){
+  // getPosts(){
 
-    this.http.
+  //   this.http.
 
-  }
+  // }
 }

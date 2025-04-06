@@ -17,7 +17,8 @@ export class UserService implements OnInit {
   ngOnInit() {
 
     // cons
-
+    console.log(this.user);
+    
     
   }
 

@@ -39,7 +39,7 @@ export class CommentsComponent implements OnInit {
   }
 
   @Output()
-  emmitter = new EventEmitter<boolean>()
+  emmitter = new EventEmitter<any>()
 
   @Input()
   PostId:any
@@ -109,7 +109,24 @@ export class CommentsComponent implements OnInit {
 
   closeComment(){
 
-    this.emmitter.emit(false)
+    if(!this.comments){
+      this.comments = []
+    }
+    console.log(this.comments.length);
+    
+
+    const event ={
+
+      value:false,
+      length: this.comments.length 
+    }
+
+    // console.log(event);
+  
+    console.log(event);
+    
+
+    this.emmitter.emit(event)
 
   }
 

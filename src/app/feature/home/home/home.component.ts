@@ -202,12 +202,14 @@ export class HomeComponent implements OnInit {
 
   notifications : any
 
-  async openNotification(){
+   openNotification(){
 
     console.log("noti");
+
+    console.log(this.profileId);
     
 
-    await this.notification.getNotification(this.profileId).subscribe({
+     this.notification.getNotification(this.profileId).subscribe({
 
       next:(res)=>{
 
@@ -223,6 +225,30 @@ export class HomeComponent implements OnInit {
 
     this.visible2 = !this.visible2
   }
+
+  deleteComponent(postId:any){
+
+    console.log("delet called");
+    
+
+    this.posts = this.posts.filter(
+      (post:any)=>
+        {
+          console.log(postId);
+          console.log(post.PostId);
+          
+          
+         return post.PostId != postId
+        }
+    )
+
+    console.log(this.posts);
+    
+
+  }
+
+
+
 }
 
 

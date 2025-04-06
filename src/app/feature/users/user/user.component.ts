@@ -34,20 +34,27 @@ export class UserComponent implements OnInit {
 
   mainUser:any
 
+  posts:any
+
   ngOnInit() {
     if (!this.userService.user) {
-      this.http
-        .get('http://localhost:200/getUser', { withCredentials: true })
-        .subscribe({
+
+      this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe(
+        {
           next: (res: any) => {
+
             this.isFollowed();
 
-            this.userService.user = res.user[0];
+            this.userService.user = res.user;
+
             console.log(this.userService.user.profile.id);
             this.mainUser = this.userService.user.profile.userName
             this.followerId = this.userService.user.profile.id;
+            
 
             console.log(this.followerId,this.followingId);
+
+          
             
 
             if (this.followingId === this.followerId) {
@@ -70,7 +77,9 @@ export class UserComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           console.log(res.user.user.post);
-          
+
+          this.posts = res.user.user.post
+
           this.profileId = res.user.id;
 
           this.user = res.user;
@@ -82,28 +91,7 @@ export class UserComponent implements OnInit {
 
           console.log(this.userService.user.userId);
 
-          this.user.user.post.forEach((post: any) => {
-            post.like.forEach((obj: any) => {
-              console.log(this.userService.user.userId);
-
-              if (obj.userId == this.userService.user.userId) {
-                post.like.isLiked = true;
-              }
-            });
-          });
-
-          // this.post.like.forEach(
-          //   (obj: any) => {
-      
-          //     console.log(this.userService.user.userId);
-              
-          //     if (obj.user.userId == this.userService.user.userId) {
-      
-          //       this.liked= true;
-      
-          //     }
-          //   })
-
+          
 
 
           if (this.followingId === this.followerId) {
@@ -126,41 +114,8 @@ export class UserComponent implements OnInit {
       });
   }
 
-  likePost(post: any) {
-    post.like.isLiked = !post.like.isLiked;
-    post.like.count = post.like.isLiked
-      ? post.like.count + 1
-      : post.like.count - 1;
-    if (post.like.count < 0) {
-      post.like.count = 0;
-    }
-    this.updateLikes(post.PostId, post.like.isLiked, post.like.count);
+  
 
-    const notification ={
-
-      profileId : this.profileId,
-      notification : `${this.mainUser} liked your post`
-
-    }
-
-    this.notification.addNotification(notification).subscribe()
-
-
-  }
-
-  updateLikes(id: number, liked: boolean, likes: number) {
-    const updates: any = {
-      postId: id,
-      updatedLiked: liked,
-      updatedLikes: likes,
-    };
-
-    this.http
-      .patch('http://localhost:200/updateLike', updates, {
-        withCredentials: true,
-      })
-      .subscribe();
-  }
 
   isFollowing: any;
 
@@ -273,7 +228,76 @@ export class UserComponent implements OnInit {
 
 
 
-    // this.http
+  
+  }
+}
+
+
+
+
+// this.user.user.post.forEach((post: any) => {
+          //   post.like.forEach((obj: any) => {
+          //     console.log(this.userService.user.userId);
+
+          //     if (obj.userId == this.userService.user.userId) {
+          //       post.like.isLiked = true;
+          //     }
+          //   });
+          // });
+
+          // this.post.like.forEach(
+          //   (obj: any) => {
+      
+          //     console.log(this.userService.user.userId);
+              
+          //     if (obj.user.userId == this.userService.user.userId) {
+      
+          //       this.liked= true;
+      
+          //     }
+          //   })
+
+
+
+// updateLikes(id: number, liked: boolean, likes: number) {
+//   const updates: any = {
+//     postId: id,
+//     updatedLiked: liked,
+//     updatedLikes: likes,
+//   };
+
+//   this.http
+//     .patch('http://localhost:200/updateLike', updates, {
+//       withCredentials: true,
+//     })
+//     .subscribe();
+// }
+
+
+// likePost(post: any) {
+//   post.like.isLiked = !post.like.isLiked;
+//   post.like.count = post.like.isLiked
+//     ? post.like.count + 1
+//     : post.like.count - 1;
+//   if (post.like.count < 0) {
+//     post.like.count = 0;
+//   }
+//   this.updateLikes(post.PostId, post.like.isLiked, post.like.count);
+
+//   const notification ={
+
+//     profileId : this.profileId,
+//     notification : `${this.mainUser} liked your post`
+
+//   }
+
+//   this.notification.addNotification(notification).subscribe()
+
+
+// }
+
+
+  // this.http
     //   .get(`http://localhost:200/getFollowing/${profileId}`, {
     //     withCredentials: true,
     //   })
@@ -289,5 +313,3 @@ export class UserComponent implements OnInit {
     //       alert(err.error);
     //     },
     //   });
-  }
-}

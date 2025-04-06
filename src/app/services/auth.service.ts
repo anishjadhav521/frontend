@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserService } from './user.service';
 import { MessageService } from 'primeng/api';
+import { Role } from '../types/enum';
 
 @Injectable({
   providedIn: 'root'
@@ -25,6 +26,22 @@ export class AuthService {
           next: (res: any) => {
     
             this.userService.user = res.user
+
+            console.log(this.userService.user);
+
+            if(this.userService.user.role == Role.Admin){
+          
+              console.log("admin");
+              
+    
+              this.router.navigate(['/admin'])
+    
+            }
+            else{
+    
+              this.router.navigate(['/home'])
+            }
+            
             
           },
     
@@ -34,8 +51,8 @@ export class AuthService {
     
           }
         })
-
-        this.router.navigate(['/home'])
+      
+       
 
       },
       error : (err)=>{

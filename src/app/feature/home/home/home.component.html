@@ -1,16 +1,7 @@
 <div class="container">
   <!-- Sidebar -->
-  <aside class="sidebar">
-    <h2>Menu</h2>
-    <ul>
-      <li><button>Home</button></li>
-      <li><button routerLink="/search">Explore</button></li>
-      <li><button routerLink="/message">Messages</button></li>
-      <li><button (click)="openNotification()">Notifications</button></li>
-      <li><button routerLink="./profile">Profile</button></li>
-    </ul>
-    <button class="add-post-btn" (click)="togglePostForm()">+ Add Post</button>
-  </aside>
+  
+  <app-menu></app-menu>
 
   <!-- Main Content -->
   <main class="content">
@@ -20,7 +11,7 @@
       <app-followers-following *ngIf="profileId" [profileId]="profileId" [postLength]="postLength" ></app-followers-following>
       
       <!-- <app-posts *ngFor="let post of posts" [post]="post" ></app-posts> -->
-      <app-posts *ngFor="let post of posts" [post]="post" ></app-posts>
+      <app-posts *ngFor="let post of posts" [post]="post"  (delete)="deleteComponent(post.PostId)" ></app-posts>
       
     </section>
   </main>
@@ -36,7 +27,7 @@
 </div>
 
 <!-- Add Post Modal -->
-<div class="modal" *ngIf="isPostFormVisible">
+<!-- <div class="modal" *ngIf="isPostFormVisible">
   <div class="modal-content">
     <h2>Add a New Post</h2>
     <input type="file" (change)="onChange($event)">
@@ -44,7 +35,7 @@
     <button (click)="addPost()">Submit</button>
     <button class="close-btn" (click)="togglePostForm()">Cancel</button>
   </div>
-</div>
+</div> -->
 
 <p-drawer header="Notification" [(visible)]="visible2" position="right" >
 

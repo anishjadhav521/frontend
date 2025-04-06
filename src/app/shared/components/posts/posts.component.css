@@ -292,3 +292,17 @@
   .comment-button:hover {
     transform: scale(1.05);
   }
+
+  .delete-btn {
+    background: transparent;
+    border: none;
+    font-size: 18px;
+    cursor: pointer;
+    color: #ef4444;
+    transition: transform 0.2s ease;
+  }
+  
+  .delete-btn:hover {
+    transform: scale(1.2);
+  }
+  

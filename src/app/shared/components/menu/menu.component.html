@@ -1,0 +1,23 @@
+<aside class="sidebar">
+    <h2>Menu</h2>
+    <ul>
+      <li><button>Home</button></li>
+      <li><button routerLink="/search">Explore</button></li>
+      <li><button routerLink="/message">Messages</button></li>
+      <li><button (click)="openNotification()">Notifications</button></li>
+      <li><button routerLink="./profile">Profile</button></li>
+      <li><button class="menu-btn">Logout</button></li>
+    </ul>
+    <button class="add-post-btn" (click)="togglePostForm()">+ Add Post</button>
+   
+</aside>
+
+<div class="modal" *ngIf="isPostFormVisible">
+    <div class="modal-content">
+      <h2>Add a New Post</h2>
+      <input type="file" (change)="onChange($event)">
+      <input type="text" [(ngModel)]="caption" placeholder="Add a caption">
+      <button (click)="addPost()">Submit</button>
+      <button class="close-btn" (click)="togglePostForm()">Cancel</button>
+    </div>
+  </div>

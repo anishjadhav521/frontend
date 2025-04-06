@@ -1,5 +1,6 @@
 
 <div class="post">
+   
     <div class="post-header">
       <img src= "C:\Users\AnishJadhavINDev\Documents\final project\{{post.imgUrl}}" alt="User Avatar" class="avatar">
       <h3>{{ post.username }}</h3>
@@ -16,7 +17,8 @@
       <button  (click)="disLike(post)" *ngIf="liked" class="like-button">dislike</button>
 
       <span>{{ likeCount }} Like</span>
-      <button class="comment-button" (click)="openComments(post.PostId)">💬 {{ post.comments.length }}</button>
+      <button class="comment-button" (click)="openComments(post.PostId)">💬 {{commentLength }}</button>
+      <button *ngIf="deleteVisible"   class="delete-btn" title="Delete User" (click)="deletePost(post.PostId)">🗑️</button> 
     </div>
   </div>
 

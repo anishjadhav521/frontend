@@ -7,10 +7,11 @@
         
         <div class="comment-list">
 
-          <div *ngFor="let comment of comments" class="comment">
-            <p><strong>{{comment.username }} : </strong>{{comment.comment}}</p>
-            <button pButton type="button" icon="pi pi-trash" label="Delete" (click)="deleteComment(comment.commentId)"></button>
-          </div>
+          <!-- <div class="comment"> -->
+            <!-- <p><strong>{{comment.username }} : </strong>{{comment.comment}}</p>
+            <button pButton type="button" icon="pi pi-trash" label="Delete" (click)="deleteComment(comment.commentId)"></button> -->
+            <app-comment *ngFor="let comment of comments"  [comment]="comment" (delete)="deleteComment(comment.commentId)"></app-comment>
+          <!-- </div> -->
           
         </div>
         

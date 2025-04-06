@@ -25,7 +25,7 @@
   }
   
   /* Sidebar */
-  .sidebar {
+  /* .sidebar {
     width: 260px;
     background: rgba(4, 120, 87, 0.85);
     color: white;
@@ -84,7 +84,7 @@
     background: #d1fae5;
     transform: scale(1.05);
   }
-  
+   */
   /* Main Content */
   .content {
     flex: 1;
@@ -189,7 +189,7 @@
   }
   
   /* Modal */
-  .modal {
+  /* .modal {
     position: fixed;
     top: 0;
     left: 0;
@@ -245,7 +245,7 @@
   
   .close-btn:hover {
     background: #9ca3af;
-  }
+  } */
   
   .post-footer {
     display: flex;

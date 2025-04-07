@@ -24,6 +24,7 @@ export class HomeComponent implements OnInit {
   visible2: boolean = false;
   profileIdOfCommenter:any
   userId:any
+  
 
 
 
@@ -244,6 +245,22 @@ export class HomeComponent implements OnInit {
 
     console.log(this.posts);
     
+
+  }
+
+  added(){
+
+    this.http.get('http://localhost:200/getPost', { withCredentials: true }).subscribe({
+
+      next: (res: any) => {
+        console.log(res.posts);
+
+        this.posts = res.posts
+        console.log(res.posts[0].caption);
+        this.userName = res.posts[0].userName
+
+      }
+    })
 
   }
 

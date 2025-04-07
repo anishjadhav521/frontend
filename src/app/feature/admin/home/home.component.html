@@ -4,25 +4,26 @@
     <!-- Admin Header -->
     <div class="admin-header">
       <div class="admin-info">
-        <h2>Welcome, <span class="admin-username">super_admin</span> 👋</h2>
+        <h2>Welcome, <span class="admin-username">admin</span> 👋</h2>
         <p class="admin-subtitle">Manage users and maintain community health</p>
       </div>
       <div class="admin-controls">
-        <button class="admin-btn">Profile</button>
-        <button class="admin-btn">Report</button>
+        <!-- <button class="admin-btn">Profile</button> -->
+        <button class="admin-btn" (click)="OpenReport()">Reports</button>
+        <!-- <input type="text"class="modal-content input" placeholder="Search by username..."> -->
       </div>
     </div>
   
     <!-- Filter Bar -->
     <div class="filter-bar">
-      <input type="text" class="search-input" placeholder="Search by username..." />
-      <select class="role-filter">
+      <input  [formControl]="username"  type="text" class="search-input" placeholder="Search by username..." />
+      <!-- <select class="role-filter">
         <option value="all">All</option>
         <option value="admin">Admin</option>
         <option value="user">User</option>
         
-      </select>
-      <span class="user-count">Total Users: <strong>12</strong></span>
+      </select> -->
+      <span class="user-count">Total Users: <strong>{{usersCount}}</strong></span>
     </div>
   
     <!-- User List -->
@@ -30,4 +31,13 @@
      <app-user-list *ngFor="let user of users" [user]="user"  (event)="deleteUser(user.userId)" ></app-user-list>
     <div>
   </div>
+
+
+  <p-drawer header="Reports" [(visible)]="visible2" position="right" >
+
+    <div class="card" >
+        <p-message  severity="success" *ngFor="let report of reports">{{report.report}}</p-message>
+    </div>
+</p-drawer>
+  
   

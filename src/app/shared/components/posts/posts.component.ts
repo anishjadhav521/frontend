@@ -3,6 +3,7 @@ import { UserService } from '../../../services/user.service';
 import { HttpClient } from '@angular/common/http';
 import { NotificationService } from '../../../services/notification.service';
 import e from 'express';
+import { Role } from '../../../types/enum';
 
 @Component({
   selector: 'app-posts',
@@ -11,10 +12,14 @@ import e from 'express';
   styleUrl: './posts.component.css'
 })
 export class PostsComponent implements OnInit {
+  file: any;
+  caption!: string ;
 
   constructor(private userService:UserService,private http :HttpClient,private notification:NotificationService){}
 
   @Input() post:any
+  @Input() added:any
+  @Input() role = Role.User
 
   userName:any
   profileId:any
@@ -22,14 +27,29 @@ export class PostsComponent implements OnInit {
   likeCount:any
   liked!:boolean
   isVisible!:boolean
+  isPostFormVisible!:boolean
+  likvis:boolean =true
 
   @Output()
   delete = new EventEmitter()
+
 
   deleteVisible !: boolean;
   commentLength!:any
 
   ngOnInit(): void {
+
+    if(this.role == Role.Admin){
+
+      this.likvis = false
+    }
+    else{
+
+      this.likvis = true
+    }
+
+    console.log(this.post.imgUrl);
+    
 
     this.commentLength = this.post.comments.length
 
@@ -37,7 +57,7 @@ export class PostsComponent implements OnInit {
     
     this.likeCount = this.post.likesCount
 
-    if(this.userService.user.profile.userName==this.post.userName){
+    if(this.userService.user.profile.userName==this.post.userName || this.userService.user.role === Role.Admin){
 
       console.log("t");
       
@@ -69,7 +89,20 @@ export class PostsComponent implements OnInit {
       })
 
   }
- 
+  togglePostForm() {
+
+    this.isPostFormVisible = !this.isPostFormVisible
+    console.log(this.isPostFormVisible);
+
+  }
+  onChange(event: any) {
+
+    if (event.target.files.length > 0) {
+
+      this.file = event.target.files[0];
+
+    }
+  }
   
 
   like(post: any) {
@@ -166,4 +199,8 @@ deletePost(postId:any){
   
 }
 
-}
+
+
+  }
+       
+ 

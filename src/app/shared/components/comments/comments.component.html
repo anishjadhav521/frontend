@@ -2,8 +2,8 @@
     <div class="modal-content">
 
       <div class="comment-section">
-        <textarea class="comment-input" placeholder="Write a comment..." [(ngModel)]="comment"></textarea>
-        <button class="comment-btn" (click)="addComment()">Post Comment</button>
+        <textarea *ngIf="postComment" class="comment-input" placeholder="Write a comment..." [(ngModel)]="comment"></textarea>
+        <button *ngIf="postComment" class="comment-btn" (click)="addComment()" >Post Comment</button>
         
         <div class="comment-list">
 

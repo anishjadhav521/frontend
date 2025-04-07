@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { UserService } from '../../../services/user.service';
 import { FollowersFollowingService } from '../../../services/followers-following.service';
 import { NotificationService } from '../../../services/notification.service';
+import { Role } from '../../../types/enum';
 
 @Component({
   selector: 'app-user',
@@ -35,6 +36,9 @@ export class UserComponent implements OnInit {
   mainUser:any
 
   posts:any
+  username:any
+
+  // menuVisible!:boolean
 
   ngOnInit() {
     if (!this.userService.user) {
@@ -44,6 +48,16 @@ export class UserComponent implements OnInit {
           next: (res: any) => {
 
             this.isFollowed();
+
+            // if( this.userService.user.role===Role.Admin){
+
+            //   this.menuVisible = false
+
+            // }
+            // else{
+
+            //   this.menuVisible = true
+            // }
 
             this.userService.user = res.user;
 
@@ -55,9 +69,10 @@ export class UserComponent implements OnInit {
             console.log(this.followerId,this.followingId);
 
           
+            console.log(this.userService.user);
             
 
-            if (this.followingId === this.followerId) {
+            if (this.followingId === this.followerId ) {
               this.isVisible = false;
             } else {
               this.isVisible = true;
@@ -66,14 +81,14 @@ export class UserComponent implements OnInit {
         });
     }
 
-    let username
+    
 
     this.routes.paramMap.subscribe(
-      (param) => (username = param.get('username'))
+      (param) => (this.username = param.get('username'))
     );
 
 
-    this.http.get(`http://localhost:200/getUser/${username}`, {withCredentials: true})
+    this.http.get(`http://localhost:200/getUser/${this.username}`, {withCredentials: true})
       .subscribe({
         next: (res: any) => {
           console.log(res.user.user.post);
@@ -93,8 +108,9 @@ export class UserComponent implements OnInit {
 
           
 
-
-          if (this.followingId === this.followerId) {
+          console.log(this.userService.user.role);
+          
+          if (this.followingId === this.followerId ) {
             this.isVisible = false;
           } else {
             this.isVisible = true;
@@ -225,10 +241,30 @@ export class UserComponent implements OnInit {
 
       }
     })
+  }
+
+  report(){
+
+    const report ={
+
+      report : `${this.mainUser} reported ${this.username}`
+
+    }
+
+    this.http.post('http://localhost:200/report',report,{withCredentials:true}).subscribe({
+
+      next:(res:any)=>{
+
+        alert(res.msg)
+
+      },
+      error:(res:any)=>{
+
+        alert(res.error)
+      }
+    })
 
 
-
-  
   }
 }
 

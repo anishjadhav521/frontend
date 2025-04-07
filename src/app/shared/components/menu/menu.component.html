@@ -1,16 +1,16 @@
 <!-- <aside class="sidebar"> -->
     <h2>Menu</h2>
-<div class="point">
+
     <ul>
-      <li><button>Home</button></li>
+      <li><button routerLink="/home">Home</button></li>
       <li><button routerLink="/search">Explore</button></li>
       <li><button routerLink="/message">Messages</button></li>
       <li><button (click)="openNotification()">Notifications</button></li>
       <li><button routerLink="./profile">Profile</button></li>
-      <li><button class="menu-btn">Logout</button></li>
+      <li><button class="menu-btn" (click)="logOut()">Logout</button></li>
     </ul>
     <button class="add-post-btn" (click)="togglePostForm()">+ Add Post</button>
-</div>
+
    
 <!-- </aside> -->
 
@@ -22,4 +22,12 @@
       <button (click)="addPost()">Submit</button>
       <button class="close-btn" (click)="togglePostForm()">Cancel</button>
     </div>
-  </div>
+</div>
+
+<p-drawer header="Notification" [(visible)]="visible2" position="right" >
+
+    <div class="card" >
+        <p-message  severity="success" *ngFor="let notificaiton of notifications">{{notificaiton.notification}}</p-message>
+    </div>
+</p-drawer>
+  

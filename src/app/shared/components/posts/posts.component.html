@@ -1,4 +1,5 @@
 
+<!-- <button (click)="togglePostForm()">add</button> -->
 <div class="post">
    
     <div class="post-header">
@@ -12,9 +13,11 @@
         <span *ngIf="post.like.isLiked">👍 Liked</span>
         <span *ngIf="!post.like.isLiked">👍 Like</span>
       </button> -->
-
-      <button (click)="like(post)" *ngIf="!liked"  class="like-button">like 👍</button>
-      <button  (click)="disLike(post)" *ngIf="liked" class="like-button">dislike</button>
+      <ng-container *ngIf="likvis">
+        <button (click)="like(post)" *ngIf="!liked"  class="like-button">like 👍</button>
+        <button  (click)="disLike(post)" *ngIf="liked" class="like-button">dislike</button>
+      </ng-container>
+      
 
       <span>{{ likeCount }} Like</span>
       <button class="comment-button" (click)="openComments(post.PostId)">💬 {{commentLength }}</button>
@@ -22,4 +25,6 @@
     </div>
   </div>
 
-  <app-comments *ngIf="isVisible" (emmitter)="closeComments($event)" [PostId]="PId"  [profileId]="profileId"></app-comments>
+  <app-comments *ngIf="isVisible" (emmitter)="closeComments($event)" [PostId]="PId"  [profileId]="profileId"  [postComment]="likvis"></app-comments>
+
+

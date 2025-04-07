@@ -14,7 +14,12 @@ export class CommentsComponent implements OnInit {
 
   comments!:any[]
 
+  @Input()
+  postComment=true
+
   ngOnInit(): void {
+
+    
      
     // this.getComments();
 

@@ -1,0 +1,33 @@
+<div class="main-content">
+
+    <!-- Profile Header -->
+    <div class="profile-container">
+      <div class="profile-header">
+        
+        <img [src]="user.profilePic" alt="Profile Picture" class="avatar large-avatar" />
+        <div class="profile-info">
+          <h2>{{ user.userName }}</h2>
+          <p class="bio">{{ user.bio }}</p>
+          <div class="profile-stats">
+            <span><b>{{ user.user.post.length }}</b> Posts</span>
+            <span><b>{{followersCount}}</b><a routerLink="../../display/true/{{profileId}}">Followers</a> </span>
+            <span><a >{{followingCount}}</a> <a routerLink="../../display/false/{{profileId}}">Following</a></span>
+             
+          </div>
+          
+          <!-- <button (click)="followUser()">follow</button> -->
+        </div>  
+      </div>
+    </div>
+
+    <!-- Posts Grid -->
+    <div class="feed">
+      <h2>Posts</h2>
+      <div class="posts-grid">
+
+        <app-posts *ngFor="let post of posts" [post]="post" [role]="role" (delete)="deleteComponent(post.PostId)"></app-posts>
+        
+      </div>
+    </div>
+  </div>
+

@@ -36,9 +36,11 @@ export class RegisterComponent implements OnInit {
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/)
       ]),
       confirmPassword: new FormControl('', [Validators.required]),
+
       phoneNumber : new FormControl('',[
-        Validators.required
+        Validators.required,Validators.pattern(/^[6-9]\d{9}$/)
       ]),
+
       fullName : new FormControl('',[Validators.required,Validators.maxLength(20)])
     }, { validators: this.passwordMatchValidator });
 
@@ -51,11 +53,20 @@ export class RegisterComponent implements OnInit {
     
     if (this.RegistrationForm.valid) {
 
-     
-      
+    const data ={
 
-      this.authService.signUp(this.RegistrationForm.value)
-       
+      userName: this.RegistrationForm.value.userName.trim(),
+      fullName:this.RegistrationForm.value.fullName.trim(),
+      password:this.RegistrationForm.value.password.trim(),
+      confirmPassword:this.RegistrationForm.value.confirmPassword.trim(),
+      email:this.RegistrationForm.value.email.trim(),
+      phoneNumber:this.RegistrationForm.value.phoneNumber.trim()
+      
+    }
+
+    //  this.RegistrationForm.value.userName.trim()
+      this.authService.signUp(data)
+      this.RegistrationForm.reset(); 
     }
   }
 

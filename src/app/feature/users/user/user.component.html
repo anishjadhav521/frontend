@@ -1,21 +1,17 @@
 <div class="page-container">
     <!-- Sidebar -->
     <div class="sidebar">
-      <h2>Menu</h2>
-      <ul>
-        <li><button routerLink="/home">Home</button></li>
-        <li><button routerLink="/search">Explore</button></li>
-        <li><button>Notifications</button></li>
-        <li><button>Messages</button></li>
-      </ul>
-      <button class="add-post-btn">New Post</button>
+      <app-menu > </app-menu>
     </div>
   
     <!-- Main Profile Section -->
     <div class="main-content">
+
+     
       <!-- Profile Header -->
       <div class="profile-container">
         <div class="profile-header">
+          <button (click)="report()">report</button>
           <img [src]="user.profilePic" alt="Profile Picture" class="avatar large-avatar" />
           <div class="profile-info">
             <h2>{{ user.userName }}</h2>

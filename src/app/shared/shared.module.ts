@@ -10,6 +10,10 @@ import { ButtonModule } from 'primeng/button';
 import { PostsComponent } from './components/posts/posts.component';
 import { CommentComponent } from './components/comment/comment.component';
 import { MenuComponent } from './components/menu/menu.component';
+import { DrawerModule } from 'primeng/drawer';
+import { Message } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import { MessageModule } from 'primeng/message';
 
 
 
@@ -20,13 +24,18 @@ import { MenuComponent } from './components/menu/menu.component';
     CommentsComponent,
     PostsComponent,
     CommentComponent,
-    MenuComponent
+    MenuComponent,
   ],
   imports: [
     CommonModule,
     SharedRoutingModule,
     FormsModule,
-    ButtonModule
+    ButtonModule,
+    DrawerModule,
+    Message,
+    ToastModule,
+    MessageModule
+    
   ],
   exports:[
     FollowersComponent,

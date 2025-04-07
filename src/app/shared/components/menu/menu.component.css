@@ -34,17 +34,38 @@
     text-align: center;
   }
    */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  body {
+    background: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+  }
+  
    ul {
     list-style: none;
+    margin: 0px;
   }
   
    ul li {
-    margin-bottom: 15px;
+    /* padding: 0px; */
+    margin-bottom: 20px;
+    margin-top: 35px;
+    
+
   }
   
    ul li button {
     width: 100%;
-    padding: 12px;
+    padding: 10px;
     background: linear-gradient(135deg, #22c55e, #047857);
     color: white;
     border: none;
@@ -52,6 +73,7 @@
     font-size: 1rem;
     border-radius: 8px;
     transition: all 0.3s ease;
+    margin: 1px;
   }
   
    ul li button:hover {
@@ -60,6 +82,7 @@
   }
   
   .add-post-btn {
+    margin: 10px;
     background: white;
     color: #047857;
     padding: 12px;
@@ -147,3 +170,11 @@
   .close-btn:hover {
     background: #9ca3af;
   }
+
+  p-message{
+
+    margin: 10px;
+
+  }
+
+  

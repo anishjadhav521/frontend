@@ -1,7 +1,7 @@
 <div class="container">
   <!-- Sidebar -->
   <aside class="sidebar">
-    <app-menu></app-menu>
+    <app-menu [profileId]="profileId" (added)="added()"></app-menu>
   </aside>
 
   <!-- Main Content -->
@@ -38,12 +38,12 @@
   </div>
 </div> -->
 
-<p-drawer header="Notification" [(visible)]="visible2" position="right" >
+<!-- <p-drawer header="Notification" [(visible)]="visible2" position="right" >
 
   <div class="card" >
       <p-message  severity="success" *ngFor="let notificaiton of notifications">{{notificaiton.notification}}</p-message>
   </div>
-</p-drawer>
+</p-drawer> -->
 
 <!-- <ng-container #container >
   <button (click)="closeComments()">close</button>

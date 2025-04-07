@@ -7,10 +7,11 @@
 
 body {
     background: #f3f4f6;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
+    /* display: flex; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* min-height: 0vh; */
+    /* height: fit-content; */
 }
 
 .container {

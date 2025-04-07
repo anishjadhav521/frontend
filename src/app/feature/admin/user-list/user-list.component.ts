@@ -1,5 +1,9 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { AdminService } from '../../../services/admin.service';
+// import { Router } from 'express';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../../../services/user.service';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-user-list',
@@ -7,11 +11,31 @@ import { AdminService } from '../../../services/admin.service';
   templateUrl: './user-list.component.html',
   styleUrl: './user-list.component.css'
 })
-export class UserListComponent {
+export class UserListComponent implements OnInit {
 
-  constructor(private adminService : AdminService){
+  constructor(private adminService : AdminService,private router : Router,private userService:UserService,private http:HttpClient){
 
   }
+
+  ngOnInit(): void {
+    if(!this.userService.user){
+
+      this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
+  
+        next: (res: any) => {
+  
+          this.userService.user = res.user
+  
+      
+  
+          console.log(res.user);
+          
+  
+        }
+      })
+  }
+  }
+
   @Input()
   user:any
 
@@ -39,6 +63,13 @@ export class UserListComponent {
     })
 
     
+  }
+
+  openProfile(username:string){
+
+    this.router.navigate(['/admin/userProfile',username])
+
+
   }
 
 

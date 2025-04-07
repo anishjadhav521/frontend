@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { NotificationService } from '../../../services/notification.service';
 import { HttpClient } from '@angular/common/http';
 import { UserService } from '../../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -9,19 +10,38 @@ import { UserService } from '../../../services/user.service';
   templateUrl: './menu.component.html',
   styleUrl: './menu.component.css'
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
 
 
-  constructor(private notification:NotificationService,private http:HttpClient,private userService : UserService){
+  constructor(private notification:NotificationService,private http:HttpClient,private userService : UserService,private router:Router){
 
   }
+
+  ngOnInit(): void {
+
+    // this.profileId = this.userService.user.profile.id
+    // console.log(this.profileId);
+
+    console.log(this.userService.user.profile.id);
+
+    this.profileId = this.userService.user.profile.id
+    
+    
+  }
+
+  
 
   posts: any = []
   file: any;
   caption: string = ''
   isPostFormVisible: boolean = false;
   userName?: string
+  @Input()
   profileId : any
+
+  @Output()
+  added = new EventEmitter()
+
   postLength:any
   visible2: boolean = false;
   profileIdOfCommenter:any
@@ -72,6 +92,8 @@ notifications : any
 
   addPost() {
 
+    
+
     this.isPostFormVisible = !this.isPostFormVisible
     const formdata = new FormData()
     formdata.append('file', this.file)
@@ -82,41 +104,31 @@ notifications : any
       this.http.post('http://localhost:200/addPost', formdata, { withCredentials: true }).subscribe({
 
         next: (res: any) => {
+
+          this.added.emit()
   
-          alert(res.msg)
-  
-          this.http.get('http://localhost:200/getPost', { withCredentials: true }).subscribe({
-  
-            next: (res: any) => {
-              console.log(res.posts);
-  
-              this.posts = res.posts
-              console.log(res.posts[0].caption);
-              this.userName = res.posts[0].userName
-  
-              this.posts.forEach((post: any) => {
-  
-                post.like.LikedBy.forEach(
-                  (obj: any) => {
-  
-                    if (obj.userId == this.userService.user[0].userId) {
-  
-                      post.like.isLiked = true;
-  
-                    }
-                  })
-              });
-            }
-          })
-        }
-      })
+    }
+    })
     }
     else{
 
       alert("empty")
     }
 
+
     
+  }
+
+  logOut(){
+
+    this.http.get('http://localhost:200/logout',{withCredentials:true}).subscribe({
+
+      next:(res:any)=>{
+
+        alert(res.msg)
+        this.router.navigate(['/'])
+      }
+    })
   }
 
 }

@@ -16,6 +16,7 @@ export class UserListComponent implements OnInit {
   constructor(private adminService : AdminService,private router : Router,private userService:UserService,private http:HttpClient){
 
   }
+  profilePic:any
 
   ngOnInit(): void {
     if(!this.userService.user){
@@ -26,7 +27,8 @@ export class UserListComponent implements OnInit {
   
           this.userService.user = res.user
   
-      
+          console.log(this.user);
+          
   
           console.log(res.user);
           
@@ -34,7 +36,10 @@ export class UserListComponent implements OnInit {
         }
       })
   }
-  }
+
+  // console.log(this.user.profilePic);
+    this.profilePic = 'assets/'+this.user.profilePic
+  } 
 
   @Input()
   user:any

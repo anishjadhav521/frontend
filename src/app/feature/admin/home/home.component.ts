@@ -25,7 +25,7 @@ export class HomeComponent implements OnInit{
   username = new FormControl();
 
   ngOnInit(): void {
-
+    
 
 
   if(!this.userService.user){

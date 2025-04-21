@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { Subject } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -10,7 +11,7 @@ import { Subject } from 'rxjs';
   styleUrl: './profile.component.css',
 })
 export class ProfileComponent implements OnInit {
-  constructor(private http: HttpClient, private userService: UserService) {}
+  constructor(private http: HttpClient, private userService: UserService,private router:Router, private activatedRoute : ActivatedRoute) {}
 
   userProfile: any;
 
@@ -25,10 +26,15 @@ export class ProfileComponent implements OnInit {
   newBio: string = '';
   newPhoneNumber: string = '';
 
+  profilePicFile:any
+  profilePic : any
+
   usernameSubject = new Subject();
 
   ngOnInit(): void {
+
     this.getProfile();
+
   }
 
   editUsername() {
@@ -80,7 +86,7 @@ export class ProfileComponent implements OnInit {
 
 
   updateEmail() {
-    if (this.newEmail) {
+    if (this.newEmail &&  /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/.test(this.newEmail)) {
       const updateEmail = {
         newEmail: this.newEmail,
         profileId: this.userProfile.id,
@@ -99,14 +105,15 @@ export class ProfileComponent implements OnInit {
           },
         });
     } else {
-      alert('field empty');
+      alert('field empty or invalid');
     }
   }
 
 
 
   updatePhoneNumber() {
-    if (this.newPhoneNumber) {
+
+    if (this.newPhoneNumber && /^[6-9]\d{9}$/.test(this.newPhoneNumber)) {
       const updatePhoneNumber = {
         newPhoneNumber: this.newPhoneNumber,
         profileId: this.userProfile.id,
@@ -125,14 +132,17 @@ export class ProfileComponent implements OnInit {
           },
         });
     } else {
-      alert('field empty');
+      alert('field empty or invalid');
     }
   }
 
-
-
   updateBio() {
-    if (this.newBio) {
+    if (this.newBio && this.newBio.length < 50) {
+
+      console.log(this.newBio.length);
+      console.log(10);
+      
+      
       const updateBio = {
         newBio: this.newBio,
         profileId: this.userProfile.id,
@@ -151,11 +161,9 @@ export class ProfileComponent implements OnInit {
           },
         });
     } else {
-      alert('field empty');
+      alert('field empty or too long');
     }
   }
-
-
 
   getProfile() {
     this.http
@@ -163,6 +171,7 @@ export class ProfileComponent implements OnInit {
       .subscribe({
         next: (res: any) => {
           this.userProfile = res.profile[0];
+          this.profilePic = 'assets/'+res.profile[0].profilePic
           console.log(res.profile[0]);
         },
         error: (res) => {
@@ -171,9 +180,108 @@ export class ProfileComponent implements OnInit {
       });
   }
 
-  deactivateAccount(){}
+  deactivateAccount(id:any){
 
-  onProfilePicSelected(event:any){}
+    console.log('hitted');
+    
+
+    this.http.delete(`http://localhost:200/deleteUser/${id}`,{withCredentials:true}).subscribe({
+
+      next:(res:any)=>{
+
+        console.log(res);
+        alert('de-activated')
+        this.router.navigate(['/']);
+      }
+    })
 
 
+
+  }
+
+  onProfilePicSelected(event:any){
+
+
+
+
+    if(event.target.files.length>0){
+
+      this.profilePicFile = event.target.files[0]
+
+     if(this.profilePicFile && (this.profilePicFile.type ==='image/png' || this.profilePicFile.type ==='image/jpeg')){
+
+
+      const formdata = new FormData()
+      formdata.append('file', this.profilePicFile)
+
+      if(this.profilePicFile){
+
+        console.log("hited profile upload");
+        
+
+        this.http.patch('http://localhost:200/updateProfile', formdata, { withCredentials: true }).subscribe({
+
+        next: (res: any) => {   
+          
+          this.getProfile()
+          alert(res.msg)
+
+    
+        },
+        error:(err)=>{
+
+          console.log(err);
+          
+
+        }
+      })
+     };
+    }
+    else{
+
+      alert("invalid format")
+    }
+    }
+
+  }
+
+  redirectToInsights(profileID:number){
+
+    console.log(profileID);
+    
+    this.router.navigate(['./insights'],{relativeTo : this.activatedRoute})
+
+
+  }
 }
+
+  // submitProfilePic(){
+
+  //   // this.isPostFormVisible = !this.isPostFormVisible
+  //   const formdata = new FormData()
+  //   formdata.append('file', this.profilePicFile)
+  //   // formdata.append('caption', this.caption)
+
+  //   {
+
+  //     this.http.post('http://localhost:200/updateProfile', formdata, { withCredentials: true }).subscribe({
+
+  //       next: (res: any) => {
+
+         
+  // console.log(res);
+  
+  //   }
+  //   })
+  //   }
+  //   // else{
+
+  //   //   alert("empty")
+  //   // }
+
+
+
+  // }
+
+
+// }

@@ -8,11 +8,14 @@ import { FollowersFollowingService } from '../../../services/followers-following
   templateUrl: './followers-following.component.html',
   styleUrl: './followers-following.component.css'
 })
-export class FollowersFollowingComponent implements OnChanges {
+export class FollowersFollowingComponent implements OnChanges,OnInit {
 
   constructor(private http : HttpClient, private followingFollowers:FollowersFollowingService){}
 
-
+  ngOnInit(): void {
+    console.log("from followers");
+    
+  }
   ngOnChanges() {
 
     this.followingFollowers.getFollowers(this.profileId).subscribe()

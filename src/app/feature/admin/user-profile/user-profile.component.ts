@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FollowersFollowingService } from '../../../services/followers-following.service';
 import { Role } from '../../../types/enum';
 import { UserService } from '../../../services/user.service';
+import { AppModule } from '../../../app.module';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,6 +25,7 @@ export class UserProfileComponent implements OnInit {
   user:any
   posts:any=[]
   profileId:any
+  profilePic:any
 
 
   ngOnInit(): void {
@@ -44,7 +46,8 @@ export class UserProfileComponent implements OnInit {
         }
       })
   }
-
+  console.log(this.user);
+  
     this.router.paramMap.subscribe({
       next:(res)=>{
 
@@ -59,7 +62,9 @@ export class UserProfileComponent implements OnInit {
 
         console.log(res.user.id);
         
-
+        console.log(res.user.profilePic);
+        this.profilePic = 'assets/'+res.user.profilePic
+        
         this.user = res.user;
 
         this.posts = res.user.user.post

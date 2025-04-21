@@ -19,7 +19,7 @@ export class AuthService {
         
         this.ms.add({severity: 'success', summary: 'Success', detail: 'logged in' })
         // alert("logged in")
-        
+        localStorage.setItem('isLogin','true')
         
         this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
 
@@ -56,6 +56,9 @@ export class AuthService {
 
       },
       error : (err)=>{
+
+        console.log(err);
+        
         
         alert ("Sorry, your password was incorrect. Please double-check your password.")
          
@@ -86,13 +89,27 @@ export class AuthService {
   
   signUp(credential:any){
 
-    this.http.post('http://localhost:200/signup',credential).subscribe(
+    this.http.post('http://localhost:200/signup',credential).subscribe({
 
-      (res:any)=>alert(res.msg)
+
+      next:(res:any)=>{
+
+        alert(res.msg)
+      },
+      error:(error)=>{
+
+        console.log(error);
+        
+
+        alert(error.error.message)
+
+      }
+    }
+
+      // (res:any)=>alert(res.msg)
     )
 
 
   }
 
-  
 }

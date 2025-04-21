@@ -8,12 +8,15 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 // import { SharedModule } from 'primeng/api';
 // import { SharedModule_1 as SharedModule } from "../../shared/shared.module";/
 import { SharedModule } from '../../shared/shared.module';
+import { InsightsComponent } from './insights/insights.component';
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 
 @NgModule({
   declarations: [
     ProfileComponent,
-    ChangePasswordComponent
+    ChangePasswordComponent,
+    InsightsComponent
   ],
   imports: [
     CommonModule,
@@ -21,7 +24,8 @@ import { SharedModule } from '../../shared/shared.module';
     FormsModule,
     ReactiveFormsModule,
     // SharedModule,
-    SharedModule
+    SharedModule,
+    NgxChartsModule
 ]
 })
 export class ProfileModule { }

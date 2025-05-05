@@ -25,9 +25,7 @@ export class HomeComponent implements OnInit{
   username = new FormControl();
 
   ngOnInit(): void {
-    
-
-
+  
   if(!this.userService.user){
 
     this.http.get('http://localhost:200/getUser', { withCredentials: true }).subscribe({
@@ -41,23 +39,11 @@ export class HomeComponent implements OnInit{
         
       }
     })
-
-
   }
 
-   this.adminService.getAllUsers().subscribe({
 
-    next:(res:any)=>{
 
-      this.users = res.users
-      console.log(this.users.length );
-      this.usersCount  = this.users.length
-    },
-    error:(err)=>{
-
-      console.log(err);
-    }
-   })
+  this.getUsers()
 
   // this.usersCount = this.users.length
 
@@ -65,24 +51,28 @@ export class HomeComponent implements OnInit{
     {
       next:(username)=>{
 
+      let trimmedUsername = username.trim()
+      console.log(trimmedUsername);
+      
+      if(!trimmedUsername){
+
+        this.getUsers()
+
+      }
+      else{
+
+        this.users = this.users.filter((user)=>{
+
+          // console.log(user.userName);
+          // if(!username){
+          // } 
+          return  user.userName.includes(trimmedUsername)
+  
+          })         
+      }
         // console.log("hii");  
-        
-
-      this.users =  this.users.filter((user)=>{
-
-        console.log(user.userName);
-        
-
-        return  user.userName.includes(username)
-
-        })
-
-        
       }
     })
-
-
-
   }
 
   deleteUser(userId:any){ 
@@ -108,6 +98,26 @@ export class HomeComponent implements OnInit{
     })
 
     this.visible2 = !this.visible2
+
+
+  }
+
+
+  getUsers(){
+
+    this.adminService.getAllUsers().subscribe({
+
+      next:(res:any)=>{
+  
+        this.users = res.users
+        console.log(this.users.length );
+        this.usersCount  = this.users.length
+      },
+      error:(err)=>{
+  
+        console.log(err);
+      }
+     })
 
 
   }

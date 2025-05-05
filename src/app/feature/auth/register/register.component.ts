@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,Validators.pattern(/^[6-9]\d{9}$/)
       ]),
 
-      fullName : new FormControl('',[Validators.required,Validators.maxLength(20)])
+      fullName : new FormControl('',[Validators.pattern(/^[A-Za-z]+$/),Validators.required,Validators.maxLength(20)])
     }, { validators: this.passwordMatchValidator });
 
     
@@ -55,6 +55,8 @@ export class RegisterComponent implements OnInit {
     console.log(this.RegistrationForm);
     
     if (this.RegistrationForm.valid) {
+
+
 
     const data ={
 

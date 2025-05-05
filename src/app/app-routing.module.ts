@@ -7,7 +7,6 @@ import { PageModule } from './feature/page/page.module';
 import { routeGuard } from './guards/route.guard';
 
 const routes: Routes =[
-    
   {path:'',loadChildren:()=>import('./feature/auth/auth.module').then(m=>m.AuthModule)},
   {path:'home',loadChildren:()=>import('./feature/home/home.module').then(m=>m.HomeModule),canActivate:[routeGuard]},
   {path:'home/profile',loadChildren:()=>import('./feature/profile/profile.module').then(m=>m.ProfileModule),canActivate:[routeGuard]},
@@ -23,3 +22,4 @@ const routes: Routes =[
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+

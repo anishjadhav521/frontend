@@ -11,7 +11,7 @@
       <!-- Profile Header -->
       <div class="profile-container">
         <div class="profile-header">
-          <button (click)="report()">report</button>
+          <button *ngIf="isVisible" (click)="report()">report</button>
           <img [src]="profilePic" alt="Profile Picture" class="avatar large-avatar" />
           <div class="profile-info">
             <h2>{{ user.userName }}</h2>

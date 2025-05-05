@@ -25,7 +25,11 @@
       <h2>Posts</h2>
       <div class="posts-grid">
 
-        <app-posts *ngFor="let post of posts" [post]="post" [role]="role" (delete)="deleteComponent(post.PostId)" [profileUrl]="profilePic"></app-posts>
+        <app-posts *ngFor="let post of posts" [post]="post" [role]="role" (delete)="deleteComponent(post.PostId)" [profileUrl]="profilePic">
+
+
+          <h1 class="xyz"> xyz</h1>
+        </app-posts>
         
       </div>
     </div>

@@ -100,6 +100,8 @@ export class UserProfileComponent implements OnInit {
     });
 }
 
+
+
 getFollowing(profileId: any) {
 
   this.followersFollowing.getFollowing(profileId).subscribe({
@@ -132,3 +134,4 @@ deleteComponent(postId:any){
   )
 }
 }
+

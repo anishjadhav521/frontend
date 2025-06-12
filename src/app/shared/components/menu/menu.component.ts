@@ -22,9 +22,9 @@ export class MenuComponent implements OnInit {
     // this.profileId = this.userService.user.profile.id
     // console.log(this.profileId);
 
-    console.log(this.userService.user.profile.id);
+    console.log(this.userService.user?.profile.id);
 
-    this.profileId = this.userService.user.profile.id
+    this.profileId = this.userService.user?.profile.id
     
     
   }
@@ -92,14 +92,19 @@ notifications : any
 
   addPost() {
 
-    
-
     this.isPostFormVisible = !this.isPostFormVisible
+    console.log(this.file.type);
+    
+    
+if (this.file && (this.file.type === 'image/png' || this.file.type === 'image/jpeg')) {
+
+
+    
     const formdata = new FormData()
     formdata.append('file', this.file)
     formdata.append('caption', this.caption)
 
-    if(this.file || this.caption){
+    
 
       this.http.post('http://localhost:200/addPost', formdata, { withCredentials: true }).subscribe({
 
@@ -112,7 +117,7 @@ notifications : any
     }
     else{
 
-      alert("empty")
+      alert("file not found or empty")
     }
 
 
@@ -125,10 +130,13 @@ notifications : any
 
       next:(res:any)=>{
 
+        localStorage.setItem('isLogin','false') 
+
         alert(res.msg)
         this.router.navigate(['/'])
       }
     })
+    
   }
 
 }

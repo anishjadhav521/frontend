@@ -11,7 +11,7 @@
   
         <!-- 👤 Profile Picture Section -->
         <div class="profile-pic-section">
-          <img [src]="userProfile.profilePictureUrl || 'https://via.placeholder.com/100'" alt="Profile Picture" class="profile-pic">
+          <img [src]="profilePic"alt="Profile Picture" class="profile-pic">
           <input type="file" (change)="onProfilePicSelected($event)" hidden #fileInput>
           <button class="edit-btn" (click)="fileInput.click()">Update Picture</button>
         </div>
@@ -76,7 +76,11 @@
   
         <!-- ❌ Deactivate Account -->
         <div class="profile-item center">
-          <button class="deactivate-btn" (click)="deactivateAccount()">Deactivate Account</button>
+          <button class="deactivate-btn" (click)="deactivateAccount(userProfile.id)">Deactivate Account</button>
+        </div>
+
+        <div class="profile-item center">
+          <button class="change-password-btn" (click)="redirectToInsights(userProfile.id)">Insights</button>
         </div>
       </section>
     </main>

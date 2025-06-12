@@ -1,7 +1,7 @@
 <div class="container">
   <!-- Sidebar -->
   <aside class="sidebar">
-    <app-menu [profileId]="profileId" (added)="added()"></app-menu>
+    <app-menu *ngIf="profileId" [profileId]="profileId" (added)="added()"></app-menu>
   </aside>
 
   <!-- Main Content -->
@@ -12,20 +12,20 @@
       <app-followers-following *ngIf="profileId" [profileId]="profileId" [postLength]="postLength" ></app-followers-following>
       
       <!-- <app-posts *ngFor="let post of posts" [post]="post" ></app-posts> -->
-      <app-posts *ngFor="let post of posts" [post]="post"  (delete)="deleteComponent(post.PostId)" ></app-posts>
+      <app-posts *ngFor="let post of posts" [post]="post"  (delete)="deleteComponent(post.PostId)" [profileUrl]="profilePicUrl" ></app-posts>
       
     </section>
   </main>
 
   <!-- Suggestions -->
-  <aside class="suggestions">
+  <!-- <aside class="suggestions">
     <h2>Suggested for you</h2>
     <ul>
       <li><button>Suggested User 1</button></li>
       <li><button>Suggested User 2</button></li>
     </ul>
   </aside>
-</div>
+</div> -->
 
 <!-- Add Post Modal -->
 <!-- <div class="modal" *ngIf="isPostFormVisible">

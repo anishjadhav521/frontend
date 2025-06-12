@@ -1,14 +1,15 @@
 <div class="login-container">
+  <h1 style="padding: 20px;">welcome to mumbagram :</h1>
     <div class="login-box">
       <h2 class="login-title">Login</h2>
       
       <form [formGroup]="userForm" (ngSubmit)="logIn()">
         <div class="input-group">
-          <label>Email</label>
-          <input type="email" formControlName="email" placeholder="Enter your email">
-          <div class="error" *ngIf="userForm.get('email')?.touched && userForm.get('email')?.invalid">
-            <span *ngIf="userForm.get('email')?.errors?.['required']">Email is required</span>
-            <span *ngIf="userForm.get('email')?.errors?.['pattern']">Enter a valid email</span>
+          <label>Email / Username</label>
+          <input type="text" formControlName="identifier" placeholder="Enter your email or username">
+          <div class="error" *ngIf="userForm.get('identifier')?.touched && userForm.get('identifier')?.invalid">
+            <span *ngIf="userForm.get('identifier')?.errors?.['required']">Email is required</span>
+            <span *ngIf="userForm.get('identifier')?.errors?.['pattern']">Enter a valid email</span>
           </div>
         </div>
         
@@ -21,19 +22,18 @@
           </div>
         </div>
         
-        <div class="options">
+        <!-- <div class="options">
           <div>
             <input type="checkbox" id="remember">
             <label for="remember">Remember me</label>
           </div>
-          <!-- <a href="#">Forgot password?</a> -->
-        </div>
-        
+        </div> -->
+         <!-- <a href="#">Forgot password?</a> -->
         <button class="login-button" [disabled]="userForm.invalid">Login</button>
         
       </form>
       
-      <a class="signup" >Don't have an account? <a routerLink="/registration" href="#">Sign up</a></a>
+      <a class="signup" >Don't have an account? <a routerLink="/registration" >Sign up</a></a>
     </div>
   </div>
 

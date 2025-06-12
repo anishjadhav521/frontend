@@ -14,6 +14,7 @@ import { Role } from '../../../types/enum';
 export class PostsComponent implements OnInit {
   file: any;
   caption!: string ;
+  profilePicUrl: any;
 
   constructor(private userService:UserService,private http :HttpClient,private notification:NotificationService){}
 
@@ -29,15 +30,25 @@ export class PostsComponent implements OnInit {
   isVisible!:boolean
   isPostFormVisible!:boolean
   likvis:boolean =true
+  postUrl !:any
+  showLikes:boolean = false
 
   @Output()
   delete = new EventEmitter()
+
+  @Input()
+  profileUrl:any
 
 
   deleteVisible !: boolean;
   commentLength!:any
 
   ngOnInit(): void {
+
+    this.postUrl = 'assets/'+this.post.imgUrl
+    this.profilePicUrl = this.profileUrl
+    console.log(this.post.like);
+    
 
     if(this.role == Role.Admin){
 
@@ -56,6 +67,9 @@ export class PostsComponent implements OnInit {
     this.profileId = this.userService.user.profile.id
     
     this.likeCount = this.post.likesCount
+
+    console.log(this.post);
+    
 
     if(this.userService.user.profile.userName==this.post.userName || this.userService.user.role === Role.Admin){
 
@@ -196,6 +210,15 @@ deletePost(postId:any){
 
   this.delete.emit()
 
+  
+}
+
+
+
+invokeLikes(){
+
+  this.showLikes = !this.showLikes
+  console.log("hii invoked");
   
 }
 

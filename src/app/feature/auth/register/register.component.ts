@@ -23,6 +23,9 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit() {
 
+    console.log("hii");
+    
+
     this.RegistrationForm = new FormGroup({
 
       userName: new FormControl<string>('',[Validators.required]),
@@ -30,7 +33,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,
         Validators.pattern(/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/)
       ]),
-      password: new FormControl('', [
+      password: new FormControl('', [ 
         Validators.required,
         Validators.minLength(8),
         Validators.pattern(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/)
@@ -41,7 +44,7 @@ export class RegisterComponent implements OnInit {
         Validators.required,Validators.pattern(/^[6-9]\d{9}$/)
       ]),
 
-      fullName : new FormControl('',[Validators.required,Validators.maxLength(20)])
+      fullName : new FormControl('',[Validators.pattern(/^[A-Za-z]+$/),Validators.required,Validators.maxLength(20)])
     }, { validators: this.passwordMatchValidator });
 
     
@@ -52,6 +55,8 @@ export class RegisterComponent implements OnInit {
     console.log(this.RegistrationForm);
     
     if (this.RegistrationForm.valid) {
+
+
 
     const data ={
 

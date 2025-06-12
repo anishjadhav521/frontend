@@ -14,6 +14,7 @@ import { DrawerModule } from 'primeng/drawer';
 import { Message } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
+import { ShowLikesComponent } from './components/show-likes/show-likes.component';
 
 
 
@@ -25,6 +26,7 @@ import { MessageModule } from 'primeng/message';
     PostsComponent,
     CommentComponent,
     MenuComponent,
+    ShowLikesComponent,
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { MessageModule } from 'primeng/message';
     FollowingComponent,
     CommentsComponent,
     PostsComponent,
-    MenuComponent
+    MenuComponent,
+    ShowLikesComponent
   ]
 })
 export class SharedModule { }

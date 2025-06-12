@@ -1,0 +1,20 @@
+<div class="modal" >
+    <div class="modal-content">
+
+      <div class="comment-section">
+       
+        <div class="comment-list">
+
+            <ng-container *ngFor="let like of likes">
+                <h1>user : {{like.user.fullName}}</h1>
+            </ng-container>
+            
+          
+        </div>
+        
+      </div>
+      <button class="comment-btn" (click)="closeComment()">close</button>
+    </div>
+  </div>
+  
+  

@@ -18,6 +18,7 @@
           <input type="text" formControlName="fullName" placeholder="Enter your full name">
           <div class="error" *ngIf="RegistrationForm.get('fullName')?.touched && RegistrationForm.get('fullName')?.invalid">
             <span *ngIf="RegistrationForm.get('fullName')?.errors?.['required']">name is required</span>
+            <span *ngIf="RegistrationForm.get('fullName')?.errors?.['pattern']">name must be in letters </span>
           </div>
         </div>
 

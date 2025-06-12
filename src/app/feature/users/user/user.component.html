@@ -11,8 +11,8 @@
       <!-- Profile Header -->
       <div class="profile-container">
         <div class="profile-header">
-          <button (click)="report()">report</button>
-          <img [src]="user.profilePic" alt="Profile Picture" class="avatar large-avatar" />
+          <button *ngIf="isVisible" (click)="report()">report</button>
+          <img [src]="profilePic" alt="Profile Picture" class="avatar large-avatar" />
           <div class="profile-info">
             <h2>{{ user.userName }}</h2>
             <p class="bio">{{ user.bio }}</p>
@@ -40,7 +40,7 @@
         <h2>Posts</h2>
         <div class="posts-grid">
 
-          <app-posts *ngFor="let post of posts" [post]="post" ></app-posts>
+          <app-posts *ngFor="let post of posts" [post]="post" [profileUrl]="profilePic"></app-posts>
           
         </div>
       </div>

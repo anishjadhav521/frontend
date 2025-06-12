@@ -77,10 +77,11 @@
   }
   
   .post-image {
-    width: 100%;
+    width: 30%;
     height: auto;
     border-radius: 12px;
     object-fit: cover;
+    /* padding-bottom: 1px; */
   }
   
   .post-footer {

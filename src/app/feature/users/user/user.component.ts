@@ -13,13 +13,7 @@ import { Role } from '../../../types/enum';
   styleUrl: './user.component.css',
 })
 export class UserComponent implements OnInit {
-  constructor(
-    private routes: ActivatedRoute,
-    private http: HttpClient,
-    private userService: UserService,
-    private followersFollowing:FollowersFollowingService,
-    private notification:NotificationService
-  ) {}
+  constructor( private routes: ActivatedRoute,private http: HttpClient,private userService: UserService,private followersFollowing:FollowersFollowingService,private notification:NotificationService) {}
 
   user: any;
   followingId: any;
@@ -37,6 +31,9 @@ export class UserComponent implements OnInit {
 
   posts:any
   username:any
+  isFollowing: any;
+
+  profilePic:any
 
   // menuVisible!:boolean
 
@@ -50,12 +47,9 @@ export class UserComponent implements OnInit {
             this.isFollowed();
 
             // if( this.userService.user.role===Role.Admin){
-
             //   this.menuVisible = false
-
             // }
             // else{
-
             //   this.menuVisible = true
             // }
 
@@ -68,8 +62,8 @@ export class UserComponent implements OnInit {
 
             console.log(this.followerId,this.followingId);
 
-          
-            console.log(this.userService.user);
+            // this.profilePic = 'assets/'+this.userService.user.profile.profilePic
+            // console.log(this.userService.user.profile.profilePic);
             
 
             if (this.followingId === this.followerId ) {
@@ -87,6 +81,9 @@ export class UserComponent implements OnInit {
       (param) => (this.username = param.get('username'))
     );
 
+    console.log(this.userService.user);
+    
+
 
     this.http.get(`http://localhost:200/getUser/${this.username}`, {withCredentials: true})
       .subscribe({
@@ -94,6 +91,11 @@ export class UserComponent implements OnInit {
           console.log(res.user.user.post);
 
           this.posts = res.user.user.post
+
+
+          console.log(res.user.profilePic);
+          this.profilePic = 'assets/'+res.user.profilePic
+          
 
           this.profileId = res.user.id;
 
@@ -133,7 +135,7 @@ export class UserComponent implements OnInit {
   
 
 
-  isFollowing: any;
+  
 
   isFollowed() {this.http.get(`http://localhost:200/isFollow/${this.followingId}/${this.followerId}`,{ withCredentials: true }).subscribe({
 
